@@ -20,6 +20,20 @@ L'ensemble de l'environnement de développement est géré à l'aide de Docker.
 *   **Build Tool** : Maven
 *   **Containerisation** : Docker, Docker Compose
 
+## Aperçu du Frontend
+
+Voici un aperçu de l'interface utilisateur.
+
+### Page d'Accueil
+![Page d'Accueil](docs/images/accueil.png)
+
+### Catalogue
+![Page du Catalogue](docs/images/catalogue.png)
+
+### Détail d'un Véhicule
+![Page de Détail d'un Véhicule](docs/images/detail_vehicule.png)
+
+
 ## Lancement du Projet
 
 ### Prérequis
