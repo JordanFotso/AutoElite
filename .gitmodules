@@ -1,0 +1,3 @@
+[submodule "VehiClub-View"]
+	path = VehiClub-View
+	url = https://github.com/JordanFotso/auto-drive-patterns.git
