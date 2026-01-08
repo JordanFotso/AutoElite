@@ -3,6 +3,7 @@ package com.vehiclub.api.services;
 import com.vehiclub.api.domain.Vehicule;
 import com.vehiclub.api.domain.commande.Commande;
 import com.vehiclub.api.domain.commande.CommandeCredit;
+import com.vehiclub.api.domain.documents.HtmlDocument;
 import com.vehiclub.api.repositories.CommandeRepository;
 import com.vehiclub.api.repositories.VehiculeRepository;
 import com.vehiclub.api.services.builder.*;
@@ -20,11 +21,13 @@ public class VehiculeService {
 
     private final VehiculeRepository vehiculeRepository;
     private final CommandeRepository commandeRepository;
+    private final LiasseVierge liasseVierge;
 
     @Autowired
-    public VehiculeService(VehiculeRepository vehiculeRepository, CommandeRepository commandeRepository) {
+    public VehiculeService(VehiculeRepository vehiculeRepository, CommandeRepository commandeRepository, LiasseVierge liasseVierge) {
         this.vehiculeRepository = vehiculeRepository;
         this.commandeRepository = commandeRepository;
+        this.liasseVierge = liasseVierge;
     }
 
     public Vehicule createVehicule(String nom, VehiculeFactory factory) {
@@ -92,6 +95,14 @@ public class VehiculeService {
 
     public Optional<Commande> getCommandeById(Long commandeId) {
         return commandeRepository.findById(commandeId);
+    }
+
+    public LiasseVierge getLiasseVierge() {
+        return liasseVierge;
+    }
+
+    public void addDocumentToLiasseVierge(String type, String content) {
+        liasseVierge.addDocument(new HtmlDocument(type, content));
     }
 }
 

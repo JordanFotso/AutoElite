@@ -28,10 +28,16 @@ Ce fichier suit l'avancement de l'implémentation des différentes fonctionnalit
     - :heavy_check_mark: Création des classes concrètes `CommandeComptantCreator` et `CommandeCreditCreator` (Créateurs Concrets).
     - :heavy_check_mark: Intégration dans `VehiculeService` avec des méthodes pour créer, valider et gérer les commandes.
     - :heavy_check_mark: Ajout d'endpoints dans `VehiculeController` pour la gestion des commandes (`POST /api/commandes`, `GET /api/commandes/{id}`, `PUT /api/commandes/{id}/valider`, `PUT /api/commandes/{id}/approuver-credit`).
+    - :heavy_check_mark: Test réussi du cycle de vie des commandes via `curl`.
+
+- [x] **4. (Singleton)** Créer la liasse vierge de documents.
+    - :heavy_check_mark: Création de la classe `LiasseVierge` annotée avec `@Component` pour être gérée comme un Singleton par Spring.
+    - :heavy_check_mark: Ajout d'une méthode d'initialisation avec `@PostConstruct`.
+    - :heavy_check_mark: Intégration dans `VehiculeService` et `VehiculeController`.
+    - :heavy_check_mark: Ajout d'endpoints (`GET /api/liasse-vierge` et `POST /api/liasse-vierge/documents`) pour démontrer le comportement du Singleton.
 
 ## À Faire
 
-- [ ] **4. (Singleton)** Créer la liasse vierge de documents.
 - [ ] **5. (Adapter)** Gérer des documents PDF.
 - [ ] **6. (Bridge)** Implanter des formulaires HTML ou à l’aide de widgets.
 - [ ] **7. (Composite)** Représenter les sociétés clientes.
@@ -40,4 +46,3 @@ Ce fichier suit l'avancement de l'implémentation des différentes fonctionnalit
 - [ ] **10. (Template Method)** Calculer le montant d’une commande.
 - [ ] **11. (Command)** Solder les véhicules restés en stock pendant une longue durée.
 - [ ] **Frontend** : Implémenter l'interface utilisateur qui consommera l'API.
-

@@ -4,6 +4,7 @@ import com.vehiclub.api.domain.Vehicule;
 import com.vehiclub.api.domain.commande.Commande;
 import com.vehiclub.api.services.VehiculeService;
 import com.vehiclub.api.services.builder.Liasse;
+import com.vehiclub.api.services.builder.LiasseVierge;
 import com.vehiclub.api.services.factory.ElectriqueFactory;
 import com.vehiclub.api.services.factory.EssenceFactory;
 import com.vehiclub.api.services.factory.VehiculeFactory;
@@ -80,6 +81,20 @@ public class VehiculeController { // Renommé de VehiculeController pour être p
         Optional<Commande> commande = vehiculeService.approuverCreditCommande(id);
         return commande.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    // Endpoints pour le Singleton LiasseVierge
+    @GetMapping("/liasse-vierge")
+    public ResponseEntity<LiasseVierge> getLiasseVierge() {
+        return ResponseEntity.ok(vehiculeService.getLiasseVierge());
+    }
+
+    @PostMapping("/liasse-vierge/documents")
+    public ResponseEntity<LiasseVierge> addDocumentToLiasseVierge(@RequestBody Map<String, String> body) {
+        String type = body.get("type");
+        String content = body.get("content");
+        vehiculeService.addDocumentToLiasseVierge(type, content);
+        return ResponseEntity.ok(vehiculeService.getLiasseVierge());
     }
 
 
