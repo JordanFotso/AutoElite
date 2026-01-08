@@ -1,4 +1,4 @@
-package com.vehiclub.api.services.builder;
+package com.vehiclub.api.services.singleton;
 
 import com.vehiclub.api.domain.documents.Document;
 import jakarta.annotation.PostConstruct;

@@ -4,7 +4,7 @@ import com.vehiclub.api.domain.Vehicule;
 import com.vehiclub.api.domain.commande.Commande;
 import com.vehiclub.api.services.VehiculeService;
 import com.vehiclub.api.services.builder.Liasse;
-import com.vehiclub.api.services.builder.LiasseVierge;
+import com.vehiclub.api.services.singleton.LiasseVierge;
 import com.vehiclub.api.services.factory.ElectriqueFactory;
 import com.vehiclub.api.services.factory.EssenceFactory;
 import com.vehiclub.api.services.factory.VehiculeFactory;

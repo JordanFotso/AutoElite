@@ -36,9 +36,13 @@ Ce fichier suit l'avancement de l'implémentation des différentes fonctionnalit
     - :heavy_check_mark: Intégration dans `VehiculeService` et `VehiculeController`.
     - :heavy_check_mark: Ajout d'endpoints (`GET /api/liasse-vierge` et `POST /api/liasse-vierge/documents`) pour démontrer le comportement du Singleton.
 
+- [x] **5. (Adapter) Gérer des documents PDF.**
+    - :heavy_check_mark: Simulation d'un service externe `PdfGeneratorService` (Adaptee).
+    - :heavy_check_mark: Création de l'adaptateur `PdfDocumentAdapter` qui implémente `Document` et utilise `PdfGeneratorService`.
+    - :heavy_check_mark: Modification de `LiassePdfBuilder` pour utiliser `PdfDocumentAdapter`.
+
 ## À Faire
 
-- [ ] **5. (Adapter)** Gérer des documents PDF.
 - [ ] **6. (Bridge)** Implanter des formulaires HTML ou à l’aide de widgets.
 - [ ] **7. (Composite)** Représenter les sociétés clientes.
 - [ ] **8. (Decorator, Observer)** Afficher les véhicules du catalogues.
@@ -46,3 +50,4 @@ Ce fichier suit l'avancement de l'implémentation des différentes fonctionnalit
 - [ ] **10. (Template Method)** Calculer le montant d’une commande.
 - [ ] **11. (Command)** Solder les véhicules restés en stock pendant une longue durée.
 - [ ] **Frontend** : Implémenter l'interface utilisateur qui consommera l'API.
+
