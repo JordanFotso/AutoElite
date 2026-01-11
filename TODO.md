@@ -61,6 +61,14 @@ Ce fichier suit l'avancement de l'implémentation des différentes fonctionnalit
     - :heavy_check_mark: Définition de la méthode abstraite `calculerTaxes()` et du "hook" `calculerFrais()`.
     - :heavy_check_mark: Implémentation des étapes spécifiques dans les sous-classes `CommandeComptant` et `CommandeCredit`.
     - :heavy_check_mark: Mise à jour des `CommandeCreator` pour appeler la Template Method lors de la création.
+    - :heavy_check_mark: Test réussi du calcul du montant pour différents pays et types de commandes.
+
+- [x] **11. (Command)** Solder les véhicules restés en stock pendant une longue durée.
+    - :heavy_check_mark: Création de l'interface `CommandePatron`.
+    - :heavy_check_mark: Modification de l'entité `Vehicule` pour inclure un prix et une remise.
+    - :heavy_check_mark: Création de la commande concrète `SoldeCommande`.
+    - :heavy_check_mark: Création du service "Invoker" `SoldesManagerService`.
+    - :heavy_check_mark: Intégration dans `VehiculeService` (le "Receiver") et `VehiculeController`.
 
 ## Annulé
 
@@ -69,5 +77,4 @@ Ce fichier suit l'avancement de l'implémentation des différentes fonctionnalit
 ## À Faire
 
 - [ ] **8. (Decorator, Observer)** Afficher les véhicules du catalogues.
-- [ ] **11. (Command)** Solder les véhicules restés en stock pendant une longue durée.
 - [ ] **Frontend** : Implémenter l'interface utilisateur qui consommera l'API.

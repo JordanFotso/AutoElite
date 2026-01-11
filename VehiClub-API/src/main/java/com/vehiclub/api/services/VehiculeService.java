@@ -123,5 +123,24 @@ public class VehiculeService {
     public void addDocumentToLiasseVierge(String type, String content) {
         liasseVierge.addDocument(new HtmlDocument(type, content));
     }
+
+    // Méthodes pour le patron Command
+    public void appliquerRemise(Vehicule vehicule, double pourcentageRemise) {
+        double nouvelleRemise = vehicule.getPrix() * (pourcentageRemise / 100.0);
+        vehicule.setRemise(nouvelleRemise);
+        vehiculeRepository.save(vehicule);
+        System.out.println("Remise de " + pourcentageRemise + "% appliquée au véhicule " + vehicule.getNom());
+    }
+
+    public Optional<Vehicule> updatePrix(Long vehiculeId, double prix) {
+        return vehiculeRepository.findById(vehiculeId).map(vehicule -> {
+            vehicule.setPrix(prix);
+            return vehiculeRepository.save(vehicule);
+        });
+    }
+
+    public Optional<Vehicule> getVehiculeById(Long vehiculeId) {
+        return vehiculeRepository.findById(vehiculeId);
+    }
 }
 

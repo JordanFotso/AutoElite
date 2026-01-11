@@ -18,6 +18,8 @@ public class Vehicule {
     private Long id;
 
     private String nom;
+    private double prix;
+    private double remise;
 
     @Transient
     private Moteur moteur;
@@ -25,6 +27,8 @@ public class Vehicule {
     public Vehicule(String nom, Moteur moteur) {
         this.nom = nom;
         this.moteur = moteur;
+        this.prix = 0.0; // Prix initial par défaut
+        this.remise = 0.0; // Aucune remise au début
     }
 
     public String getDescription() {
