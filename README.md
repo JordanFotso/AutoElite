@@ -6,14 +6,15 @@ Ce projet est une application web de vente de véhicules en ligne, conçue pour 
 
 L'objectif principal de ce projet est de servir de démonstration pratique pour l'implémentation de patrons de conception GoF (Gang of Four) dans une application réelle. Chaque patron est utilisé pour résoudre un problème de conception spécifique au sein de l'API backend.
 
-## Architecture
+## Architecture de Développement
 
-L'application est divisée en deux sous-projets principaux :
+L'application suit une architecture découplée  3-Tiers, composée de :
 
-- **`VehiClub-API` (Backend)**: Une API RESTful développée en Java avec Spring Boot. Elle contient toute la logique métier et l'implémentation des patrons de conception.
-- **`VehiClub-View` (Frontend)**: Une interface utilisateur développée avec React (Vite) et TypeScript, qui consomme l'API backend.
+- **Un Backend API RESTful (`VehiClub-API`)**: Développé avec **Java/Spring Boot**, il expose des endpoints REST pour toutes les opérations métier. Cette approche le rend agnostique à la technologie du client.
+- **Un Frontend Single Page Application (SPA) (`VehiClub-View`)**: Développé avec **React/TypeScript**, il offre une expérience utilisateur riche et dynamique en consommant les données de l'API backend.
+- **Une Base de Données Relationnelle**: **PostgreSQL** est utilisé pour la persistance des données.
+- **Un Environnement Containerisé**: **Docker** et **Docker Compose** sont utilisés pour gérer la base de données, assurant un environnement de développement cohérent et facile à mettre en place.
 
-L'environnement de développement est containerisé à l'aide de Docker pour la base de données.
 
 ## Stack Technologique
 
