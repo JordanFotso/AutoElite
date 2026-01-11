@@ -49,15 +49,9 @@ public class VehiculeService {
         return vehicules;
     }
 
-    public Vehicule createVehicule(String nom, VehiculeFactory factory) {
-        // Utilise la factory pour créer les composants
-        Vehicule vehicule = new Vehicule(nom, factory.createMoteur());
-
-        // Affiche la description pour la démonstration
-        System.out.println("Création -> " + vehicule.getDescription());
-
-        // Sauvegarde l'entité en base de données.
-        // Note: le champ 'moteur' marqué @Transient ne sera pas persisté.
+    public Vehicule createVehicule(Vehicule vehicule, VehiculeFactory factory) {
+        vehicule.setMoteur(factory.createMoteur());
+        System.out.println("Création -> " + vehicule.getFullDescription());
         return vehiculeRepository.save(vehicule);
     }
 
@@ -71,7 +65,7 @@ public class VehiculeService {
             } else if ("html".equalsIgnoreCase(format)) {
                 builder = new LiasseHtmlBuilder();
             } else {
-                return null; // Format non supporté
+                return null;
             }
 
             directeur.setBuilder(builder);
@@ -79,7 +73,7 @@ public class VehiculeService {
         });
     }
 
-    public Optional<Commande> createCommande(Long vehiculeId, String typeCommande, double montantInitial, String paysLivraison) {
+    public Optional<Commande> createCommande(Long vehiculeId, String typeCommande, String paysLivraison) {
         return vehiculeRepository.findById(vehiculeId).map(vehicule -> {
             CommandeCreator creator;
             if ("comptant".equalsIgnoreCase(typeCommande)) {
@@ -87,10 +81,11 @@ public class VehiculeService {
             } else if ("credit".equalsIgnoreCase(typeCommande)) {
                 creator = new CommandeCreditCreator();
             } else {
-                return null; // Type de commande non supporté
+                return null;
             }
 
-            Commande commande = creator.creerEtPreparerCommande(vehicule, montantInitial, paysLivraison);
+            // Le montant initial est maintenant le basePrice du véhicule
+            Commande commande = creator.creerEtPreparerCommande(vehicule, vehicule.getBasePrice(), paysLivraison);
             return commandeRepository.save(commande);
         });
     }
@@ -108,7 +103,7 @@ public class VehiculeService {
                 ((CommandeCredit) commande).approuverCredit();
                 return commandeRepository.save(commande);
             }
-            return commande; // Pas une commande crédit, ne fait rien
+            return commande;
         });
     }
 
@@ -126,15 +121,16 @@ public class VehiculeService {
 
     // Méthodes pour le patron Command
     public void appliquerRemise(Vehicule vehicule, double pourcentageRemise) {
-        double nouvelleRemise = vehicule.getPrix() * (pourcentageRemise / 100.0);
-        vehicule.setRemise(nouvelleRemise);
+        double nouvelleRemise = vehicule.getBasePrice() * (pourcentageRemise / 100.0);
+        vehicule.setSaleDiscount(nouvelleRemise);
+        vehicule.setOnSale(true);
         vehiculeRepository.save(vehicule);
-        System.out.println("Remise de " + pourcentageRemise + "% appliquée au véhicule " + vehicule.getNom());
+        System.out.println("Remise de " + pourcentageRemise + "% appliquée au véhicule " + vehicule.getName());
     }
 
     public Optional<Vehicule> updatePrix(Long vehiculeId, double prix) {
         return vehiculeRepository.findById(vehiculeId).map(vehicule -> {
-            vehicule.setPrix(prix);
+            vehicule.setBasePrice(prix);
             return vehiculeRepository.save(vehicule);
         });
     }

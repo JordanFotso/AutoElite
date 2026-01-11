@@ -25,17 +25,17 @@ public class LiassePdfBuilder implements LiasseDocumentBuilder {
 
     @Override
     public void buildDemandeImmatriculation(Vehicule vehicule) {
-        liasse.addDocument(new PdfDocumentAdapter(pdfGeneratorService, "Demande d'Immatriculation", "Contenu pour l'immatriculation du " + vehicule.getNom()));
+        liasse.addDocument(new PdfDocumentAdapter(pdfGeneratorService, "Demande d'Immatriculation", "Contenu pour l'immatriculation du " + vehicule.getName()));
     }
 
     @Override
     public void buildCertificatCession(Vehicule vehicule) {
-        liasse.addDocument(new PdfDocumentAdapter(pdfGeneratorService, "Certificat de Cession", "Contenu pour la cession du " + vehicule.getNom()));
+        liasse.addDocument(new PdfDocumentAdapter(pdfGeneratorService, "Certificat de Cession", "Contenu pour la cession du " + vehicule.getName()));
     }
 
     @Override
     public void buildBonCommande(Vehicule vehicule) {
-        liasse.addDocument(new PdfDocumentAdapter(pdfGeneratorService, "Bon de Commande", "Contenu pour la commande du " + vehicule.getNom()));
+        liasse.addDocument(new PdfDocumentAdapter(pdfGeneratorService, "Bon de Commande", "Contenu pour la commande du " + vehicule.getName()));
     }
 
     @Override

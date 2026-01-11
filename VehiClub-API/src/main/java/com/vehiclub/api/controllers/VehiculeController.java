@@ -7,10 +7,10 @@ import com.vehiclub.api.services.builder.Liasse;
 import com.vehiclub.api.services.command.CommandePatron;
 import com.vehiclub.api.services.command.SoldeCommande;
 import com.vehiclub.api.services.command.SoldesManagerService;
-import com.vehiclub.api.services.singleton.LiasseVierge;
 import com.vehiclub.api.services.factory.ElectriqueFactory;
 import com.vehiclub.api.services.factory.EssenceFactory;
 import com.vehiclub.api.services.factory.VehiculeFactory;
+import com.vehiclub.api.services.singleton.LiasseVierge;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +21,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api") // Gardons-le comme ça pour le moment pour éviter de casser les autres endpoints.
+@RequestMapping("/api")
 public class VehiculeController {
 
     private final VehiculeService vehiculeService;
@@ -35,24 +35,23 @@ public class VehiculeController {
 
     // Endpoints pour les véhicules
     @PostMapping("/vehicules")
-    public ResponseEntity<Vehicule> createVehicule(@RequestBody Map<String, String> body) {
-        String nom = body.get("nom");
-        String type = body.get("type");
-
-        VehiculeFactory factory = getFactory(type);
+    public ResponseEntity<Vehicule> createVehicule(@RequestBody Vehicule vehicule) {
+        // Le type de moteur est maintenant défini dans les specifications.
+        // Nous allons simplifier en utilisant un type de moteur basé sur le type de véhicule.
+        VehiculeFactory factory = getFactoryFromVehicule(vehicule);
         if (factory == null) {
             return ResponseEntity.badRequest().build();
         }
 
-        Vehicule vehicule = vehiculeService.createVehicule(nom, factory);
-        return ResponseEntity.status(HttpStatus.CREATED).body(vehicule);
+        Vehicule createdVehicule = vehiculeService.createVehicule(vehicule, factory);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdVehicule);
     }
 
     @GetMapping("/vehicules/{id}/liasse")
     public ResponseEntity<Liasse> getLiasse(@PathVariable Long id, @RequestParam String format) {
-        Optional<Liasse> liasse = vehiculeService.generateLiasse(id, format);
-        return liasse.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.badRequest().build());
+        return vehiculeService.generateLiasse(id, format)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.badRequest().build());
     }
 
     @GetMapping("/vehicules/catalogue")
@@ -72,7 +71,6 @@ public class VehiculeController {
     @PostMapping("/vehicules/{id}/solder")
     public ResponseEntity<Vehicule> solderVehicule(@PathVariable Long id, @RequestBody Map<String, Double> body) {
         double pourcentage = body.get("pourcentage");
-
         return vehiculeService.getVehiculeById(id).map(vehicule -> {
             CommandePatron soldeCommande = new SoldeCommande(vehicule, pourcentage, vehiculeService);
             soldesManagerService.addCommande(soldeCommande);
@@ -88,33 +86,32 @@ public class VehiculeController {
     public ResponseEntity<Commande> createCommande(@RequestBody Map<String, String> body) {
         Long vehiculeId = Long.parseLong(body.get("vehiculeId"));
         String typeCommande = body.get("typeCommande");
-        double montantInitial = Double.parseDouble(body.get("montantInitial"));
         String paysLivraison = body.get("paysLivraison");
 
-        Optional<Commande> commande = vehiculeService.createCommande(vehiculeId, typeCommande, montantInitial, paysLivraison);
-        return commande.map(c -> ResponseEntity.status(HttpStatus.CREATED).body(c))
-                .orElseGet(() -> ResponseEntity.badRequest().build());
+        return vehiculeService.createCommande(vehiculeId, typeCommande, paysLivraison)
+                .map(c -> ResponseEntity.status(HttpStatus.CREATED).body(c))
+                .orElse(ResponseEntity.badRequest().build());
     }
 
     @GetMapping("/commandes/{id}")
     public ResponseEntity<Commande> getCommande(@PathVariable Long id) {
-        Optional<Commande> commande = vehiculeService.getCommandeById(id);
-        return commande.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        return vehiculeService.getCommandeById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/commandes/{id}/valider")
     public ResponseEntity<Commande> validerCommande(@PathVariable Long id) {
-        Optional<Commande> commande = vehiculeService.validerCommande(id);
-        return commande.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        return vehiculeService.validerCommande(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/commandes/{id}/approuver-credit")
     public ResponseEntity<Commande> approuverCreditCommande(@PathVariable Long id) {
-        Optional<Commande> commande = vehiculeService.approuverCreditCommande(id);
-        return commande.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        return vehiculeService.approuverCreditCommande(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     // Endpoints pour le Singleton LiasseVierge
@@ -131,13 +128,23 @@ public class VehiculeController {
         return ResponseEntity.ok(vehiculeService.getLiasseVierge());
     }
 
+        private VehiculeFactory getFactoryFromVehicule(Vehicule vehicule) {
 
-    private VehiculeFactory getFactory(String type) {
-        if (type == null) return null;
-        return switch (type.toLowerCase()) {
-            case "essence" -> new EssenceFactory();
-            case "electrique" -> new ElectriqueFactory();
-            default -> null;
-        };
-    }
+            if (vehicule == null || vehicule.getType() == null) {
+
+                return new EssenceFactory(); // Par défaut
+
+            }
+
+            return switch (vehicule.getType()) {
+
+                case AUTOMOBILE -> new EssenceFactory(); // Par exemple
+
+                case SCOOTER -> new ElectriqueFactory(); // Par exemple
+
+                default -> null;
+
+            };
+
+        }
 }

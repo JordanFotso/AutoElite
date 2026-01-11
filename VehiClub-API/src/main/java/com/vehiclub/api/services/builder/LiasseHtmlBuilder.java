@@ -8,17 +8,17 @@ public class LiasseHtmlBuilder implements LiasseDocumentBuilder {
 
     @Override
     public void buildDemandeImmatriculation(Vehicule vehicule) {
-        liasse.addDocument(new HtmlDocument("Demande d'Immatriculation", "Contenu HTML pour l'immatriculation du " + vehicule.getNom()));
+        liasse.addDocument(new HtmlDocument("Demande d'Immatriculation", "Contenu HTML pour l'immatriculation du " + vehicule.getName()));
     }
 
     @Override
     public void buildCertificatCession(Vehicule vehicule) {
-        liasse.addDocument(new HtmlDocument("Certificat de Cession", "Contenu HTML pour la cession du " + vehicule.getNom()));
+        liasse.addDocument(new HtmlDocument("Certificat de Cession", "Contenu HTML pour la cession du " + vehicule.getName()));
     }
 
     @Override
     public void buildBonCommande(Vehicule vehicule) {
-        liasse.addDocument(new HtmlDocument("Bon de Commande", "Contenu HTML pour la commande du " + vehicule.getNom()));
+        liasse.addDocument(new HtmlDocument("Bon de Commande", "Contenu HTML pour la commande du " + vehicule.getName()));
     }
 
     @Override

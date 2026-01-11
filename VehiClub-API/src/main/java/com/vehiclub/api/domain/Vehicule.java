@@ -1,12 +1,14 @@
 package com.vehiclub.api.domain;
 
+import com.vehiclub.api.domain.embeddable.Specifications;
+import com.vehiclub.api.domain.enums.VehicleType;
 import com.vehiclub.api.domain.parts.Moteur;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Transient;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Data
@@ -17,24 +19,43 @@ public class Vehicule {
     @GeneratedValue
     private Long id;
 
-    private String nom;
-    private double prix;
-    private double remise;
+    private String name;
+    
+    @Enumerated(EnumType.STRING)
+    private VehicleType type;
+
+    private String brand;
+    private String model;
+    private int year;
+    private double basePrice;
+    private String description;
+    private String image;
+    private double saleDiscount;
+    private boolean isOnSale;
+    private LocalDate inStockSince;
+
+    @Embedded
+    private Specifications specifications;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "vehicule_id")
+    private List<VehicleOption> availableOptions;
 
     @Transient
     private Moteur moteur;
 
-    public Vehicule(String nom, Moteur moteur) {
-        this.nom = nom;
+    public Vehicule(String name, Moteur moteur) {
+        this.name = name;
         this.moteur = moteur;
-        this.prix = 0.0; // Prix initial par défaut
-        this.remise = 0.0; // Aucune remise au début
+        this.basePrice = 0.0;
+        this.saleDiscount = 0.0;
+        this.inStockSince = LocalDate.now();
     }
 
-    public String getDescription() {
+    public String getFullDescription() {
         if (moteur == null) {
             return "Véhicule incomplet";
         }
-        return "Véhicule: " + nom + ", Énergie: " + moteur.getEnergie();
+        return "Véhicule: " + name + ", Énergie: " + moteur.getEnergie();
     }
 }
