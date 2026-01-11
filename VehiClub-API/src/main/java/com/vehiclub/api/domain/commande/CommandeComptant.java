@@ -12,8 +12,8 @@ public class CommandeComptant extends Commande {
         super();
     }
 
-    public CommandeComptant(Vehicule vehicule, double montantTotal) {
-        super(vehicule, montantTotal);
+    public CommandeComptant(Vehicule vehicule, double montantInitial, String paysLivraison) {
+        super(vehicule, montantInitial, paysLivraison);
     }
 
     @Override
@@ -30,13 +30,12 @@ public class CommandeComptant extends Commande {
     }
 
     @Override
-    public void calculerTotalAvecTaxes(String paysLivraison) {
-        double tauxTaxe = 0.20; // Exemple de TVA par défaut
-        if (paysLivraison != null && paysLivraison.equalsIgnoreCase("Canada")) {
-            tauxTaxe = 0.05; // Exemple de TPS au Canada
+    protected double calculerTaxes(double prixBase, String paysLivraison) {
+        if ("France".equalsIgnoreCase(paysLivraison)) {
+            return prixBase * 0.20; // TVA française
+        } else if ("Suisse".equalsIgnoreCase(paysLivraison)) {
+            return prixBase * 0.08; // TVA suisse
         }
-        // Le montant total sera mis à jour avec les taxes
-        this.setMontantTotal(this.getMontantTotal() * (1 + tauxTaxe));
-        System.out.println("Total commande comptant calculé avec taxes pour " + paysLivraison + ". Nouveau total: " + this.getMontantTotal());
+        return prixBase * 0.20; // Taux par défaut
     }
 }

@@ -18,7 +18,9 @@ public abstract class Commande {
     private Long id;
 
     private LocalDateTime dateCommande;
-    private double montantTotal;
+    private double montantInitial; // Prix de base avant taxes et remises
+    private double montantTotal;   // Prix final
+    private String paysLivraison;
 
     @ManyToOne
     @JoinColumn(name = "vehicule_id")
@@ -27,16 +29,32 @@ public abstract class Commande {
     @Enumerated(EnumType.STRING)
     private StatutCommande status;
 
-    public Commande(Vehicule vehicule, double montantTotal) {
+    public Commande(Vehicule vehicule, double montantInitial, String paysLivraison) {
         this.vehicule = vehicule;
-        this.montantTotal = montantTotal;
+        this.montantInitial = montantInitial;
+        this.paysLivraison = paysLivraison;
         this.dateCommande = LocalDateTime.now();
         this.status = StatutCommande.EN_COURS;
     }
 
+    // La Template Method
+    public final void calculerMontantTotal() {
+        double prixBase = this.montantInitial;
+        double taxes = calculerTaxes(prixBase, this.paysLivraison);
+        double frais = calculerFrais(prixBase); // "Hook" pour les frais supplémentaires
+
+        this.montantTotal = prixBase + taxes + frais;
+    }
+
+    protected abstract double calculerTaxes(double prixBase, String paysLivraison);
+
+    // "Hook" - une étape optionnelle avec une implémentation par défaut
+    protected double calculerFrais(double prixBase) {
+        return 0.0;
+    }
+
     public abstract String getTypeCommande();
-    public abstract boolean validerCommande(); // Logique de validation spécifique au type de commande
-    public abstract void calculerTotalAvecTaxes(String paysLivraison); // Logique de calcul des taxes
+    public abstract boolean validerCommande();
 
     // Enum pour le statut de la commande
     public enum StatutCommande {

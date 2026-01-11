@@ -55,6 +55,13 @@ Ce fichier suit l'avancement de l'implémentation des différentes fonctionnalit
     - :heavy_check_mark: Création de l'itérateur concret `IterateurVehicule`.
     - :heavy_check_mark: Intégration dans `VehiculeService` et ajout d'un endpoint `GET /api/vehicules/catalogue` dans `VehiculeController`.
 
+- [x] **10. (Template Method) Calculer le montant d’une commande.**
+    - :heavy_check_mark: Refactorisation de la classe abstraite `Commande` pour en faire la classe Template.
+    - :heavy_check_mark: Définition de la méthode `final calculerMontantTotal()` (la Template Method).
+    - :heavy_check_mark: Définition de la méthode abstraite `calculerTaxes()` et du "hook" `calculerFrais()`.
+    - :heavy_check_mark: Implémentation des étapes spécifiques dans les sous-classes `CommandeComptant` et `CommandeCredit`.
+    - :heavy_check_mark: Mise à jour des `CommandeCreator` pour appeler la Template Method lors de la création.
+
 ## Annulé
 
 - [ ] **6. (Bridge)** Implanter des formulaires HTML ou à l’aide de widgets. (Annulé car plus pertinent côté frontend).
@@ -62,6 +69,5 @@ Ce fichier suit l'avancement de l'implémentation des différentes fonctionnalit
 ## À Faire
 
 - [ ] **8. (Decorator, Observer)** Afficher les véhicules du catalogues.
-- [ ] **10. (Template Method)** Calculer le montant d’une commande.
 - [ ] **11. (Command)** Solder les véhicules restés en stock pendant une longue durée.
 - [ ] **Frontend** : Implémenter l'interface utilisateur qui consommera l'API.

@@ -6,7 +6,7 @@ import com.vehiclub.api.domain.commande.CommandeCredit;
 
 public class CommandeCreditCreator extends CommandeCreator {
     @Override
-    public Commande createCommande(Vehicule vehicule, double montantTotal) {
-        return new CommandeCredit(vehicule, montantTotal);
+    public Commande createCommande(Vehicule vehicule, double montantInitial, String paysLivraison) {
+        return new CommandeCredit(vehicule, montantInitial, paysLivraison);
     }
 }

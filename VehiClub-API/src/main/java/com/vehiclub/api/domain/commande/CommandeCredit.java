@@ -15,8 +15,8 @@ public class CommandeCredit extends Commande {
         super();
     }
 
-    public CommandeCredit(Vehicule vehicule, double montantTotal) {
-        super(vehicule, montantTotal);
+    public CommandeCredit(Vehicule vehicule, double montantInitial, String paysLivraison) {
+        super(vehicule, montantInitial, paysLivraison);
         this.creditApprouve = false; // Par défaut, le crédit n'est pas approuvé
     }
 
@@ -39,14 +39,19 @@ public class CommandeCredit extends Commande {
     }
 
     @Override
-    public void calculerTotalAvecTaxes(String paysLivraison) {
-        double tauxTaxe = 0.20; // Exemple de TVA par défaut
-        if (paysLivraison != null && paysLivraison.equalsIgnoreCase("Canada")) {
-            tauxTaxe = 0.05; // Exemple de TPS au Canada
+    protected double calculerTaxes(double prixBase, String paysLivraison) {
+        if ("France".equalsIgnoreCase(paysLivraison)) {
+            return prixBase * 0.20; // TVA française
+        } else if ("Suisse".equalsIgnoreCase(paysLivraison)) {
+            return prixBase * 0.08; // TVA suisse
         }
-        double fraisCredit = 0.02; // Frais de dossier pour le crédit
-        this.setMontantTotal(this.getMontantTotal() * (1 + tauxTaxe) * (1 + fraisCredit));
-        System.out.println("Total commande crédit calculé avec taxes et frais de crédit pour " + paysLivraison + ". Nouveau total: " + this.getMontantTotal());
+        return prixBase * 0.20; // Taux par défaut
+    }
+
+    @Override
+    protected double calculerFrais(double prixBase) {
+        // Ajout des frais de dossier pour le crédit (2% du prix de base)
+        return prixBase * 0.02;
     }
 
     // Méthode pour simuler l'approbation du crédit
