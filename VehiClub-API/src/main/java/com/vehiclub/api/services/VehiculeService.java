@@ -16,9 +16,13 @@ import com.vehiclub.api.services.builder.LiassePdfBuilder;
 import com.vehiclub.api.services.factorymethod.CommandeComptantCreator;
 import com.vehiclub.api.services.factorymethod.CommandeCreditCreator;
 import com.vehiclub.api.services.factorymethod.CommandeCreator;
+import com.vehiclub.api.services.iterator.CatalogueVehicules;
+import com.vehiclub.api.services.iterator.Iterateur;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -33,6 +37,16 @@ public class VehiculeService {
         this.vehiculeRepository = vehiculeRepository;
         this.commandeRepository = commandeRepository;
         this.liasseVierge = liasseVierge;
+    }
+
+    public List<Vehicule> getVehiculesFromIterator() {
+        CatalogueVehicules catalogue = new CatalogueVehicules(vehiculeRepository);
+        Iterateur iterateur = catalogue.creeIterateur();
+        List<Vehicule> vehicules = new ArrayList<>();
+        while (iterateur.aSuivant()) {
+            vehicules.add(iterateur.suivant());
+        }
+        return vehicules;
     }
 
     public Vehicule createVehicule(String nom, VehiculeFactory factory) {

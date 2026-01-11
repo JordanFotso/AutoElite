@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -47,6 +48,12 @@ public class VehiculeController { // Renommé de VehiculeController pour être p
         Optional<Liasse> liasse = vehiculeService.generateLiasse(id, format);
         return liasse.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.badRequest().build());
+    }
+
+    @GetMapping("/vehicules/catalogue")
+    public ResponseEntity<List<Vehicule>> getCatalogue() {
+        List<Vehicule> vehicules = vehiculeService.getVehiculesFromIterator();
+        return ResponseEntity.ok(vehicules);
     }
 
     // Endpoints pour les commandes

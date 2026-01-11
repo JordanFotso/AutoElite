@@ -27,27 +27,41 @@ Ce fichier suit l'avancement de l'implémentation des différentes fonctionnalit
     - :heavy_check_mark: Création de la classe abstraite `CommandeCreator` (Créateur Abstrait).
     - :heavy_check_mark: Création des classes concrètes `CommandeComptantCreator` et `CommandeCreditCreator` (Créateurs Concrets).
     - :heavy_check_mark: Intégration dans `VehiculeService` avec des méthodes pour créer, valider et gérer les commandes.
-    - :heavy_check_mark: Ajout d'endpoints dans `VehiculeController` pour la gestion des commandes (`POST /api/commandes`, `GET /api/commandes/{id}`, `PUT /api/commandes/{id}/valider`, `PUT /api/commandes/{id}/approuver-credit`).
+    - :heavy_check_mark: Ajout d'endpoints dans `VehiculeController` pour la gestion des commandes.
     - :heavy_check_mark: Test réussi du cycle de vie des commandes via `curl`.
 
 - [x] **4. (Singleton)** Créer la liasse vierge de documents.
     - :heavy_check_mark: Création de la classe `LiasseVierge` annotée avec `@Component` pour être gérée comme un Singleton par Spring.
     - :heavy_check_mark: Ajout d'une méthode d'initialisation avec `@PostConstruct`.
-    - :heavy_check_mark: Intégration dans `VehiculeService` et `VehiculeController`.
-    - :heavy_check_mark: Ajout d'endpoints (`GET /api/liasse-vierge` et `POST /api/liasse-vierge/documents`) pour démontrer le comportement du Singleton.
+    - :heavy_check_mark: Intégration dans `VehiculeService` et `VehiculeController` pour tester son comportement.
 
 - [x] **5. (Adapter) Gérer des documents PDF.**
     - :heavy_check_mark: Simulation d'un service externe `PdfGeneratorService` (Adaptee).
     - :heavy_check_mark: Création de l'adaptateur `PdfDocumentAdapter` qui implémente `Document` et utilise `PdfGeneratorService`.
     - :heavy_check_mark: Modification de `LiassePdfBuilder` pour utiliser `PdfDocumentAdapter`.
 
+- [x] **7. (Composite) Représenter les sociétés clientes.**
+    - :heavy_check_mark: Création d'une structure de persistance JPA avec héritage (`SINGLE_TABLE`) pour le patron Composite.
+    - :heavy_check_mark: Création de la classe abstraite `Societe` (le composant).
+    - :heavy_check_mark: Création de `SocieteFeuille` (la feuille) et `SocieteComposite` (le composite).
+    - :heavy_check_mark: Création du `SocieteRepository`, `SocieteService`, et `SocieteController` pour gérer la hiérarchie.
+    - :heavy_check_mark: Ajout d'annotations `@JsonManagedReference` et `@JsonBackReference` pour gérer la sérialisation de la hiérarchie.
+    - :heavy_check_mark: Test réussi de la création et de la récupération de la hiérarchie via `curl`.
+    - :heavy_check_mark: Réorganisation des fichiers dans un sous-package `composite` dédié.
+
+- [x] **9. (Iterator)** Retrouver séquentiellement les véhicules du catalogue.
+    - :heavy_check_mark: Création des interfaces `Agregat` et `Iterateur`.
+    - :heavy_check_mark: Création de l'agrégat concret `CatalogueVehicules`.
+    - :heavy_check_mark: Création de l'itérateur concret `IterateurVehicule`.
+    - :heavy_check_mark: Intégration dans `VehiculeService` et ajout d'un endpoint `GET /api/vehicules/catalogue` dans `VehiculeController`.
+
+## Annulé
+
+- [ ] **6. (Bridge)** Implanter des formulaires HTML ou à l’aide de widgets. (Annulé car plus pertinent côté frontend).
+
 ## À Faire
 
-- [ ] **6. (Bridge)** Implanter des formulaires HTML ou à l’aide de widgets.
-- [ ] **7. (Composite)** Représenter les sociétés clientes.
 - [ ] **8. (Decorator, Observer)** Afficher les véhicules du catalogues.
-- [ ] **9. (Iterator)** Retrouver séquentiellement les véhicules du catalogue.
 - [ ] **10. (Template Method)** Calculer le montant d’une commande.
 - [ ] **11. (Command)** Solder les véhicules restés en stock pendant une longue durée.
 - [ ] **Frontend** : Implémenter l'interface utilisateur qui consommera l'API.
-
