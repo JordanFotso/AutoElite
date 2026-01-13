@@ -47,6 +47,13 @@ public class VehiculeController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdVehicule);
     }
 
+    @GetMapping("/vehicules/{id}") // Nouvel endpoint pour récupérer un véhicule par ID
+    public ResponseEntity<Vehicule> getVehiculeById(@PathVariable Long id) {
+        return vehiculeService.getVehiculeById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
     @GetMapping("/vehicules/{id}/liasse")
     public ResponseEntity<Liasse> getLiasse(@PathVariable Long id, @RequestParam String format) {
         return vehiculeService.generateLiasse(id, format)
