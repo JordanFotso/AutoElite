@@ -32,7 +32,6 @@ public class Vehicule {
     private String description;
     private String image;
     private double saleDiscount;
-    @JsonProperty("isOnSale") // Force le nom de la propriété JSON à "isOnSale"
     private boolean isOnSale;
     private LocalDate inStockSince;
 

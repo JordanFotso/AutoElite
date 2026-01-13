@@ -12,6 +12,8 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -19,6 +21,8 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.text.Normalizer;
+import java.nio.charset.StandardCharsets;
 
 @Component
 @Profile("!test") // Ne pas exécuter les seeders lors des tests
@@ -63,7 +67,8 @@ public class DataSeeder implements CommandLineRunner {
             createOption("Pack Confort", 800.0, "Intérieur", Collections.emptyList()),
             createOption("Jantes alliage 17\"", 600.0, "Extérieur", Collections.emptyList())
         ));
-        vehiculeService.createVehicule(autoEssence, getBytesFromResource("Toyota-Tundra-75.webp"), "Toyota-Tundra-75.webp", new EssenceFactory());
+        MultipartFile imageEssence = loadImageAsMultipartFile("Toyota-Tundra-75.webp", "image/webp");
+        vehiculeService.createVehicule(autoEssence, imageEssence, new EssenceFactory());
 
         // Véhicule 2: Automobile Électrique (Tesla Model 3)
         Vehicule autoElectrique = new Vehicule();
@@ -87,7 +92,8 @@ public class DataSeeder implements CommandLineRunner {
             createOption("Autopilot Amélioré", 3800.0, "Technologie", Collections.emptyList()),
             createOption("Intérieur Blanc Premium", 1200.0, "Intérieur", Collections.emptyList())
         ));
-        vehiculeService.createVehicule(autoElectrique, getBytesFromResource("Model-3-Standard.avif"), "Model-3-Standard.avif", new ElectriqueFactory());
+        MultipartFile imageElectrique = loadImageAsMultipartFile("Model-3-Standard.avif", "image/avif");
+        vehiculeService.createVehicule(autoElectrique, imageElectrique, new ElectriqueFactory());
 
         // Véhicule 3: Scooter (Yamaha NMAX 125)
         Vehicule scooterEssence = new Vehicule();
@@ -110,7 +116,8 @@ public class DataSeeder implements CommandLineRunner {
             createOption("Pare-brise Haut", 150.0, "Accessoire", Collections.emptyList()),
             createOption("Top Case 39L", 200.0, "Accessoire", Collections.emptyList())
         ));
-        vehiculeService.createVehicule(scooterEssence, getBytesFromResource("NMAX-125.jpg"), "NMAX-125.jpg", new EssenceFactory());
+        MultipartFile imageScooterEssence = loadImageAsMultipartFile("NMAX-125.jpg", "image/jpeg");
+        vehiculeService.createVehicule(scooterEssence, imageScooterEssence, new EssenceFactory());
 
         // NOUVEAU VÉHICULE 4: Voiture Sportive (Porsche 911)
         Vehicule porsche911 = new Vehicule();
@@ -134,7 +141,8 @@ public class DataSeeder implements CommandLineRunner {
             createOption("Pack Sport Chrono", 2500.0, "Performance", Collections.emptyList()),
             createOption("Sièges Sport Adaptatifs Plus", 3000.0, "Intérieur", Collections.emptyList())
         ));
-        vehiculeService.createVehicule(porsche911, getBytesFromResource("porsche911.jpeg"), "porsche911.jpeg", new EssenceFactory());
+        MultipartFile imagePorsche = loadImageAsMultipartFile("porsche911.jpeg", "image/jpeg");
+        vehiculeService.createVehicule(porsche911, imagePorsche, new EssenceFactory());
 
         // NOUVEAU VÉHICULE 5: Voiture Économique (Peugeot 208)
         Vehicule peugeot208 = new Vehicule();
@@ -157,7 +165,8 @@ public class DataSeeder implements CommandLineRunner {
             createOption("Caméra de recul", 350.0, "Sécurité", Collections.emptyList()),
             createOption("Peinture spéciale", 600.0, "Extérieur", Collections.emptyList())
         ));
-        vehiculeService.createVehicule(peugeot208, getBytesFromResource("peugeot208.webp"), "peugeot208.webp", new EssenceFactory());
+        MultipartFile imagePeugeot = loadImageAsMultipartFile("peugeot208.webp", "image/webp");
+        vehiculeService.createVehicule(peugeot208, imagePeugeot, new EssenceFactory());
 
         // NOUVEAU VÉHICULE 6: Scooter Électrique (Silence S01)
         Vehicule silenceS01 = new Vehicule();
@@ -181,7 +190,8 @@ public class DataSeeder implements CommandLineRunner {
             createOption("Top Case Grand Volume", 250.0, "Accessoire", Collections.emptyList()),
             createOption("Prise USB intégrée", 50.0, "Confort", Collections.emptyList())
         ));
-        vehiculeService.createVehicule(silenceS01, getBytesFromResource("silences01.webp"), "silences01.webp", new ElectriqueFactory());
+        MultipartFile imageSilence = loadImageAsMultipartFile("silences01.webp", "image/webp");
+        vehiculeService.createVehicule(silenceS01, imageSilence, new ElectriqueFactory());
 
         // NOUVEAU VÉHICULE 7: Voiture avec options incompatibles (Audi A4)
         Vehicule audiA4 = new Vehicule();
@@ -201,11 +211,12 @@ public class DataSeeder implements CommandLineRunner {
         specsAudi.setTopSpeed("240 km/h");
         audiA4.setSpecifications(specsAudi);
         audiA4.setAvailableOptions(Arrays.asList(
-            createOption("Sièges Sportifs", 1500.0, "Intérieur", Arrays.asList("Sièges en Cuir")),
-            createOption("Sièges en Cuir", 2000.0, "Intérieur", Arrays.asList("Sièges Sportifs")),
+            createOption("Sièges Sportifs", 1500.0, "Intérieur", Arrays.asList(generateIdFromName("Sièges en Cuir"))),
+            createOption("Sièges en Cuir", 2000.0, "Intérieur", Arrays.asList(generateIdFromName("Sièges Sportifs"))),
             createOption("Pack Assistance Route", 1200.0, "Sécurité", Collections.emptyList())
         ));
-        vehiculeService.createVehicule(audiA4, getBytesFromResource("audi-a4.jpeg"), "audi-a4.jpeg", new EssenceFactory());
+        MultipartFile imageAudi = loadImageAsMultipartFile("audi-a4.jpeg", "image/jpeg");
+        vehiculeService.createVehicule(audiA4, imageAudi, new EssenceFactory());
 
         // NOUVEAU VÉHICULE 8: Scooter avec options incompatibles (BMW C 400 GT)
         Vehicule bmwC400Gt = new Vehicule();
@@ -226,24 +237,44 @@ public class DataSeeder implements CommandLineRunner {
         specsBMW.setTopSpeed("139 km/h");
         bmwC400Gt.setSpecifications(specsBMW);
         bmwC400Gt.setAvailableOptions(Arrays.asList(
-            createOption("Poignées Chauffantes", 200.0, "Confort", Arrays.asList("Protège-Mains")),
-            createOption("Protège-Mains", 150.0, "Confort", Arrays.asList("Poignées Chauffantes")),
+            createOption("Poignées Chauffantes", 200.0, "Confort", Arrays.asList(generateIdFromName("Protège-Mains"))),
+            createOption("Protège-Mains", 150.0, "Confort", Arrays.asList(generateIdFromName("Poignées Chauffantes"))),
             createOption("Connectivity avec Écran TFT", 600.0, "Technologie", Collections.emptyList())
         ));
-        vehiculeService.createVehicule(bmwC400Gt, getBytesFromResource("bmw-c400gt.webp"), "bmw-c400gt.webp", new EssenceFactory());
+        MultipartFile imageBMW = loadImageAsMultipartFile("bmw-c400gt.webp", "image/webp");
+        vehiculeService.createVehicule(bmwC400Gt, imageBMW, new EssenceFactory());
     }
 
     private VehicleOption createOption(String name, double price, String category, List<String> incompatibleWith) {
         VehicleOption option = new VehicleOption();
+        option.setId(generateIdFromName(name)); // Générer l'ID métier à partir du nom
         option.setName(name);
         option.setPrice(price);
         option.setCategory(category);
         option.setIncompatibleWith(incompatibleWith);
         return option;
     }
+    
+    private String generateIdFromName(String name) {
+        String normalized = Normalizer.normalize(name, Normalizer.Form.NFD);
+        return normalized.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "")
+                         .toLowerCase()
+                         .replaceAll("[^a-z0-9]+", "-")
+                         .replaceAll("^-|-$", "");
+    }
 
-    private byte[] getBytesFromResource(String filename) throws IOException {
-        Resource resource = resourceLoader.getResource("classpath:seed-images/" + filename);
-        return Files.readAllBytes(resource.getFile().toPath());
+    private MultipartFile loadImageAsMultipartFile(String filename, String contentType) throws IOException {
+        try {
+            Resource resource = resourceLoader.getResource("classpath:seed-images/" + filename);
+            if (!resource.exists()) {
+                System.err.println("Warning: Seed image not found: " + filename);
+                return new MockMultipartFile(filename, filename, contentType, "".getBytes(StandardCharsets.UTF_8)); // Retourne un fichier vide
+            }
+            byte[] fileContent = Files.readAllBytes(resource.getFile().toPath());
+            return new MockMultipartFile(filename, filename, contentType, fileContent);
+        } catch (IOException e) {
+            System.err.println("Warning: Could not load seed image " + filename + ". " + e.getMessage());
+            return new MockMultipartFile(filename, filename, contentType, "".getBytes(StandardCharsets.UTF_8)); // Retourne un fichier vide
+        }
     }
 }
