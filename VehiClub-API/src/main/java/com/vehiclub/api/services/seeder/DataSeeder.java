@@ -42,7 +42,7 @@ public class DataSeeder implements CommandLineRunner {
     private void seedVehicles() throws IOException {
         System.out.println("Seeding initial vehicle data...");
 
-        // Véhicule 1: Automobile Essence
+        // Véhicule 1: Automobile Essence (Toyota Tundra)
         Vehicule autoEssence = new Vehicule();
         autoEssence.setName("Toyota Tundra");
         autoEssence.setType(VehicleType.AUTOMOBILE);
@@ -65,7 +65,7 @@ public class DataSeeder implements CommandLineRunner {
         ));
         vehiculeService.createVehicule(autoEssence, getBytesFromResource("Toyota-Tundra-75.webp"), "Toyota-Tundra-75.webp", new EssenceFactory());
 
-        // Véhicule 2: Automobile Électrique
+        // Véhicule 2: Automobile Électrique (Tesla Model 3)
         Vehicule autoElectrique = new Vehicule();
         autoElectrique.setName("Model 3");
         autoElectrique.setType(VehicleType.AUTOMOBILE);
@@ -89,28 +89,148 @@ public class DataSeeder implements CommandLineRunner {
         ));
         vehiculeService.createVehicule(autoElectrique, getBytesFromResource("Model-3-Standard.avif"), "Model-3-Standard.avif", new ElectriqueFactory());
 
-        // Véhicule 3: Scooter
-        Vehicule scooter = new Vehicule();
-        scooter.setName("NMAX 125");
-        scooter.setType(VehicleType.SCOOTER);
-        scooter.setBrand("Yamaha");
-        scooter.setModel("125");
-        scooter.setYear(2023);
-        scooter.setBasePrice(3500.0);
-        scooter.setDescription("Le scooter urbain par excellence, agile et économique.");
-        scooter.setInStockSince(LocalDate.of(2023, 7, 1));
-        scooter.setOnSale(false);
-        Specifications specsScooter = new Specifications();
-        specsScooter.setEngine("Essence");
-        specsScooter.setPower("12 ch");
-        specsScooter.setAcceleration("nc");
-        specsScooter.setTopSpeed("100 km/h");
-        scooter.setSpecifications(specsScooter);
-        scooter.setAvailableOptions(Arrays.asList(
+        // Véhicule 3: Scooter (Yamaha NMAX 125)
+        Vehicule scooterEssence = new Vehicule();
+        scooterEssence.setName("NMAX 125");
+        scooterEssence.setType(VehicleType.SCOOTER);
+        scooterEssence.setBrand("Yamaha");
+        scooterEssence.setModel("125");
+        scooterEssence.setYear(2023);
+        scooterEssence.setBasePrice(3500.0);
+        scooterEssence.setDescription("Le scooter urbain par excellence, agile et économique.");
+        scooterEssence.setInStockSince(LocalDate.of(2023, 7, 1));
+        scooterEssence.setOnSale(false);
+        Specifications specsScooterEssence = new Specifications();
+        specsScooterEssence.setEngine("Essence");
+        specsScooterEssence.setPower("12 ch");
+        specsScooterEssence.setAcceleration("nc");
+        specsScooterEssence.setTopSpeed("100 km/h");
+        scooterEssence.setSpecifications(specsScooterEssence);
+        scooterEssence.setAvailableOptions(Arrays.asList(
             createOption("Pare-brise Haut", 150.0, "Accessoire", Collections.emptyList()),
             createOption("Top Case 39L", 200.0, "Accessoire", Collections.emptyList())
         ));
-        vehiculeService.createVehicule(scooter, getBytesFromResource("NMAX-125.jpg"), "NMAX-125.jpg", new EssenceFactory());
+        vehiculeService.createVehicule(scooterEssence, getBytesFromResource("NMAX-125.jpg"), "NMAX-125.jpg", new EssenceFactory());
+
+        // NOUVEAU VÉHICULE 4: Voiture Sportive (Porsche 911)
+        Vehicule porsche911 = new Vehicule();
+        porsche911.setName("911 Carrera S");
+        porsche911.setType(VehicleType.AUTOMOBILE);
+        porsche911.setBrand("Porsche");
+        porsche911.setModel("911");
+        porsche911.setYear(2024);
+        porsche911.setBasePrice(125000.0);
+        porsche911.setDescription("L'icône de la performance et du design allemand.");
+        porsche911.setInStockSince(LocalDate.of(2024, 2, 1));
+        porsche911.setOnSale(true);
+        porsche911.setSaleDiscount(12500.0); // 10% de remise
+        Specifications specsPorsche = new Specifications();
+        specsPorsche.setEngine("Essence");
+        specsPorsche.setPower("450 ch");
+        specsPorsche.setAcceleration("3.7s (0-100km/h)");
+        specsPorsche.setTopSpeed("308 km/h");
+        porsche911.setSpecifications(specsPorsche);
+        porsche911.setAvailableOptions(Arrays.asList(
+            createOption("Pack Sport Chrono", 2500.0, "Performance", Collections.emptyList()),
+            createOption("Sièges Sport Adaptatifs Plus", 3000.0, "Intérieur", Collections.emptyList())
+        ));
+        vehiculeService.createVehicule(porsche911, getBytesFromResource("porsche911.jpeg"), "porsche911.jpeg", new EssenceFactory());
+
+        // NOUVEAU VÉHICULE 5: Voiture Économique (Peugeot 208)
+        Vehicule peugeot208 = new Vehicule();
+        peugeot208.setName("208 Active Pack");
+        peugeot208.setType(VehicleType.AUTOMOBILE);
+        peugeot208.setBrand("Peugeot");
+        peugeot208.setModel("208");
+        peugeot208.setYear(2023);
+        peugeot208.setBasePrice(18000.0);
+        peugeot208.setDescription("Une citadine polyvalente et agréable à conduire.");
+        peugeot208.setInStockSince(LocalDate.of(2023, 10, 1));
+        peugeot208.setOnSale(false);
+        Specifications specsPeugeot = new Specifications();
+        specsPeugeot.setEngine("Essence");
+        specsPeugeot.setPower("75 ch");
+        specsPeugeot.setAcceleration("13.2s (0-100km/h)");
+        specsPeugeot.setTopSpeed("170 km/h");
+        peugeot208.setSpecifications(specsPeugeot);
+        peugeot208.setAvailableOptions(Arrays.asList(
+            createOption("Caméra de recul", 350.0, "Sécurité", Collections.emptyList()),
+            createOption("Peinture spéciale", 600.0, "Extérieur", Collections.emptyList())
+        ));
+        vehiculeService.createVehicule(peugeot208, getBytesFromResource("peugeot208.webp"), "peugeot208.webp", new EssenceFactory());
+
+        // NOUVEAU VÉHICULE 6: Scooter Électrique (Silence S01)
+        Vehicule silenceS01 = new Vehicule();
+        silenceS01.setName("Silence S01");
+        silenceS01.setType(VehicleType.SCOOTER);
+        silenceS01.setBrand("Silence");
+        silenceS01.setModel("S01");
+        silenceS01.setYear(2024);
+        silenceS01.setBasePrice(6900.0);
+        silenceS01.setDescription("Le scooter électrique haute performance, idéal pour la ville.");
+        silenceS01.setInStockSince(LocalDate.of(2024, 3, 1));
+        silenceS01.setOnSale(true);
+        silenceS01.setSaleDiscount(690.0); // 10% de remise
+        Specifications specsSilence = new Specifications();
+        specsSilence.setEngine("Électrique");
+        specsSilence.setPower("11 ch");
+        specsSilence.setAcceleration("3.8s (0-50km/h)");
+        specsSilence.setTopSpeed("100 km/h");
+        silenceS01.setSpecifications(specsSilence);
+        silenceS01.setAvailableOptions(Arrays.asList(
+            createOption("Top Case Grand Volume", 250.0, "Accessoire", Collections.emptyList()),
+            createOption("Prise USB intégrée", 50.0, "Confort", Collections.emptyList())
+        ));
+        vehiculeService.createVehicule(silenceS01, getBytesFromResource("silences01.webp"), "silences01.webp", new ElectriqueFactory());
+
+        // NOUVEAU VÉHICULE 7: Voiture avec options incompatibles (Audi A4)
+        Vehicule audiA4 = new Vehicule();
+        audiA4.setName("A4 Avant");
+        audiA4.setType(VehicleType.AUTOMOBILE);
+        audiA4.setBrand("Audi");
+        audiA4.setModel("A4");
+        audiA4.setYear(2024);
+        audiA4.setBasePrice(42000.0);
+        audiA4.setDescription("Berline premium alliant élégance et technologie.");
+        audiA4.setInStockSince(LocalDate.of(2024, 4, 10));
+        audiA4.setOnSale(false);
+        Specifications specsAudi = new Specifications();
+        specsAudi.setEngine("Essence");
+        specsAudi.setPower("204 ch");
+        specsAudi.setAcceleration("7.3s (0-100km/h)");
+        specsAudi.setTopSpeed("240 km/h");
+        audiA4.setSpecifications(specsAudi);
+        audiA4.setAvailableOptions(Arrays.asList(
+            createOption("Sièges Sportifs", 1500.0, "Intérieur", Arrays.asList("Sièges en Cuir")),
+            createOption("Sièges en Cuir", 2000.0, "Intérieur", Arrays.asList("Sièges Sportifs")),
+            createOption("Pack Assistance Route", 1200.0, "Sécurité", Collections.emptyList())
+        ));
+        vehiculeService.createVehicule(audiA4, getBytesFromResource("audi-a4.jpeg"), "audi-a4.jpeg", new EssenceFactory());
+
+        // NOUVEAU VÉHICULE 8: Scooter avec options incompatibles (BMW C 400 GT)
+        Vehicule bmwC400Gt = new Vehicule();
+        bmwC400Gt.setName("C 400 GT");
+        bmwC400Gt.setType(VehicleType.SCOOTER);
+        bmwC400Gt.setBrand("BMW");
+        bmwC400Gt.setModel("C 400 GT");
+        bmwC400Gt.setYear(2023);
+        bmwC400Gt.setBasePrice(8500.0);
+        bmwC400Gt.setDescription("Maxi-scooter pour la ville et les longs trajets.");
+        bmwC400Gt.setInStockSince(LocalDate.of(2023, 6, 20));
+        bmwC400Gt.setOnSale(true);
+        bmwC400Gt.setSaleDiscount(850.0); // 10% de remise
+        Specifications specsBMW = new Specifications();
+        specsBMW.setEngine("Essence"); // En supposant une version essence du C 400 GT pour l'exemple
+        specsBMW.setPower("34 ch");
+        specsBMW.setAcceleration("9.5s (0-100km/h)");
+        specsBMW.setTopSpeed("139 km/h");
+        bmwC400Gt.setSpecifications(specsBMW);
+        bmwC400Gt.setAvailableOptions(Arrays.asList(
+            createOption("Poignées Chauffantes", 200.0, "Confort", Arrays.asList("Protège-Mains")),
+            createOption("Protège-Mains", 150.0, "Confort", Arrays.asList("Poignées Chauffantes")),
+            createOption("Connectivity avec Écran TFT", 600.0, "Technologie", Collections.emptyList())
+        ));
+        vehiculeService.createVehicule(bmwC400Gt, getBytesFromResource("bmw-c400gt.webp"), "bmw-c400gt.webp", new EssenceFactory());
     }
 
     private VehicleOption createOption(String name, double price, String category, List<String> incompatibleWith) {

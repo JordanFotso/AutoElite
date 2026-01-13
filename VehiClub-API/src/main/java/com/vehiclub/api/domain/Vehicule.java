@@ -1,5 +1,6 @@
 package com.vehiclub.api.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.vehiclub.api.domain.embeddable.Specifications;
 import com.vehiclub.api.domain.enums.VehicleType;
 import com.vehiclub.api.domain.parts.Moteur;
@@ -31,6 +32,7 @@ public class Vehicule {
     private String description;
     private String image;
     private double saleDiscount;
+    @JsonProperty("isOnSale") // Force le nom de la propriété JSON à "isOnSale"
     private boolean isOnSale;
     private LocalDate inStockSince;
 
