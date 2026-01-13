@@ -20,6 +20,8 @@ import com.vehiclub.api.services.iterator.CatalogueVehicules;
 import com.vehiclub.api.services.iterator.Iterateur;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,12 +33,14 @@ public class VehiculeService {
     private final VehiculeRepository vehiculeRepository;
     private final CommandeRepository commandeRepository;
     private final LiasseVierge liasseVierge;
+    private final CloudinaryService cloudinaryService;
 
     @Autowired
-    public VehiculeService(VehiculeRepository vehiculeRepository, CommandeRepository commandeRepository, LiasseVierge liasseVierge) {
+    public VehiculeService(VehiculeRepository vehiculeRepository, CommandeRepository commandeRepository, LiasseVierge liasseVierge, CloudinaryService cloudinaryService) {
         this.vehiculeRepository = vehiculeRepository;
         this.commandeRepository = commandeRepository;
         this.liasseVierge = liasseVierge;
+        this.cloudinaryService = cloudinaryService;
     }
 
     public List<Vehicule> getVehiculesFromIterator() {
@@ -49,7 +53,25 @@ public class VehiculeService {
         return vehicules;
     }
 
-    public Vehicule createVehicule(Vehicule vehicule, VehiculeFactory factory) {
+    // Méthode pour le contrôleur (avec MultipartFile)
+    public Vehicule createVehicule(Vehicule vehicule, MultipartFile imageFile, VehiculeFactory factory) {
+        // Upload de l'image sur Cloudinary
+        String imageUrl = cloudinaryService.uploadFile(imageFile);
+        vehicule.setImage(imageUrl);
+
+        // Logique de création existante
+        vehicule.setMoteur(factory.createMoteur());
+        System.out.println("Création -> " + vehicule.getFullDescription());
+        return vehiculeRepository.save(vehicule);
+    }
+
+    // Méthode surchargée pour le seeder (avec byte[] et filename)
+    public Vehicule createVehicule(Vehicule vehicule, byte[] imageBytes, String filename, VehiculeFactory factory) throws IOException {
+        // Upload de l'image sur Cloudinary
+        String imageUrl = cloudinaryService.uploadFile(imageBytes, filename);
+        vehicule.setImage(imageUrl);
+        
+        // Logique de création existante
         vehicule.setMoteur(factory.createMoteur());
         System.out.println("Création -> " + vehicule.getFullDescription());
         return vehiculeRepository.save(vehicule);
@@ -84,7 +106,6 @@ public class VehiculeService {
                 return null;
             }
 
-            // Le montant initial est maintenant le basePrice du véhicule
             Commande commande = creator.creerEtPreparerCommande(vehicule, vehicule.getBasePrice(), paysLivraison);
             return commandeRepository.save(commande);
         });

@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -34,16 +35,15 @@ public class VehiculeController {
     }
 
     // Endpoints pour les véhicules
-    @PostMapping("/vehicules")
-    public ResponseEntity<Vehicule> createVehicule(@RequestBody Vehicule vehicule) {
-        // Le type de moteur est maintenant défini dans les specifications.
-        // Nous allons simplifier en utilisant un type de moteur basé sur le type de véhicule.
+    @PostMapping(value = "/vehicules", consumes = {"multipart/form-data"})
+    public ResponseEntity<Vehicule> createVehicule(@RequestPart("vehicule") Vehicule vehicule,
+                                                   @RequestPart(value = "image", required = false) MultipartFile imageFile) {
         VehiculeFactory factory = getFactoryFromVehicule(vehicule);
         if (factory == null) {
             return ResponseEntity.badRequest().build();
         }
 
-        Vehicule createdVehicule = vehiculeService.createVehicule(vehicule, factory);
+        Vehicule createdVehicule = vehiculeService.createVehicule(vehicule, imageFile, factory);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdVehicule);
     }
 
