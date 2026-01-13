@@ -47,7 +47,13 @@ public class VehiculeController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdVehicule);
     }
 
-    @GetMapping("/vehicules/{id}") // Nouvel endpoint pour récupérer un véhicule par ID
+    @GetMapping("/vehicules/promotions")
+    public ResponseEntity<List<Vehicule>> getPromotions() {
+        List<Vehicule> promotions = vehiculeService.getVehiculesEnPromotion();
+        return ResponseEntity.ok(promotions);
+    }
+
+    @GetMapping("/vehicules/{id}") // Endpoint pour récupérer un véhicule par ID (doit être après /promotions)
     public ResponseEntity<Vehicule> getVehiculeById(@PathVariable Long id) {
         return vehiculeService.getVehiculeById(id)
                 .map(ResponseEntity::ok)

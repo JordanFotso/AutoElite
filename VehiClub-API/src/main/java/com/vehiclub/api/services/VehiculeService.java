@@ -159,5 +159,9 @@ public class VehiculeService {
     public Optional<Vehicule> getVehiculeById(Long vehiculeId) {
         return vehiculeRepository.findById(vehiculeId);
     }
+
+    public List<Vehicule> getVehiculesEnPromotion() {
+        return vehiculeRepository.findByIsOnSaleTrue();
+    }
 }
 
