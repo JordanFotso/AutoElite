@@ -40,5 +40,12 @@ Voici un aperçu de l'interface utilisateur cible.
 ### Catalogue
 ![Page du Catalogue](docs/images/catalogue.png)
 
+### Promotion
+![Page des Véhicules en promotion](docs/images/promotion.png)
+
+### Pannier
+![Page d'achat](docs/images/pannier.png)
+
 ### Détail d'un Véhicule
 ![Page de Détail d'un Véhicule](docs/images/detail_vehicule.png)
+
