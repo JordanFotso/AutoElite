@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -40,7 +41,7 @@ public class Vehicule {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "vehicule_id")
-    private List<VehicleOption> availableOptions;
+    private List<VehicleOption> availableOptions = new ArrayList<>();
 
     @Transient
     private Moteur moteur;

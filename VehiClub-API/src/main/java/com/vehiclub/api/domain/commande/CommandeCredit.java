@@ -1,8 +1,9 @@
 package com.vehiclub.api.domain.commande;
 
-import com.vehiclub.api.domain.Vehicule;
+import com.vehiclub.api.domain.User;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import java.util.List;
 
 @Entity
 @DiscriminatorValue("CREDIT")
@@ -15,8 +16,8 @@ public class CommandeCredit extends Commande {
         super();
     }
 
-    public CommandeCredit(Vehicule vehicule, double montantInitial, String paysLivraison) {
-        super(vehicule, montantInitial, paysLivraison);
+    public CommandeCredit(List<OrderItem> items, User user, String paysLivraison) {
+        super(items, user, paysLivraison);
         this.creditApprouve = false; // Par défaut, le crédit n'est pas approuvé
     }
 
@@ -36,22 +37,6 @@ public class CommandeCredit extends Commande {
             System.out.println("Commande crédit en attente (crédit non approuvé).");
             return false;
         }
-    }
-
-    @Override
-    protected double calculerTaxes(double prixBase, String paysLivraison) {
-        if ("France".equalsIgnoreCase(paysLivraison)) {
-            return prixBase * 0.20; // TVA française
-        } else if ("Suisse".equalsIgnoreCase(paysLivraison)) {
-            return prixBase * 0.08; // TVA suisse
-        }
-        return prixBase * 0.20; // Taux par défaut
-    }
-
-    @Override
-    protected double calculerFrais(double prixBase) {
-        // Ajout des frais de dossier pour le crédit (2% du prix de base)
-        return prixBase * 0.02;
     }
 
     // Méthode pour simuler l'approbation du crédit

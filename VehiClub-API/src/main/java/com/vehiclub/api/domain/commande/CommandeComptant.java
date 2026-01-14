@@ -1,8 +1,9 @@
 package com.vehiclub.api.domain.commande;
 
-import com.vehiclub.api.domain.Vehicule;
+import com.vehiclub.api.domain.User;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import java.util.List;
 
 @Entity
 @DiscriminatorValue("COMPTANT")
@@ -12,8 +13,8 @@ public class CommandeComptant extends Commande {
         super();
     }
 
-    public CommandeComptant(Vehicule vehicule, double montantInitial, String paysLivraison) {
-        super(vehicule, montantInitial, paysLivraison);
+    public CommandeComptant(List<OrderItem> items, User user, String paysLivraison) {
+        super(items, user, paysLivraison);
     }
 
     @Override
@@ -27,15 +28,5 @@ public class CommandeComptant extends Commande {
         this.setStatus(StatutCommande.VALIDEE);
         System.out.println("Commande comptant validée.");
         return true;
-    }
-
-    @Override
-    protected double calculerTaxes(double prixBase, String paysLivraison) {
-        if ("France".equalsIgnoreCase(paysLivraison)) {
-            return prixBase * 0.20; // TVA française
-        } else if ("Suisse".equalsIgnoreCase(paysLivraison)) {
-            return prixBase * 0.08; // TVA suisse
-        }
-        return prixBase * 0.20; // Taux par défaut
     }
 }

@@ -1,28 +1,33 @@
 package com.vehiclub.api.services;
 
+import com.vehiclub.api.domain.User;
 import com.vehiclub.api.domain.Vehicule;
 import com.vehiclub.api.domain.commande.Commande;
 import com.vehiclub.api.domain.commande.CommandeCredit;
+import com.vehiclub.api.domain.commande.OrderItem;
 import com.vehiclub.api.domain.documents.HtmlDocument;
 import com.vehiclub.api.repositories.CommandeRepository;
 import com.vehiclub.api.repositories.VehiculeRepository;
-import com.vehiclub.api.services.singleton.LiasseVierge;
-import com.vehiclub.api.services.factory.VehiculeFactory;
-import com.vehiclub.api.services.builder.Liasse;
 import com.vehiclub.api.services.builder.DirecteurLiasse;
+import com.vehiclub.api.services.builder.Liasse;
 import com.vehiclub.api.services.builder.LiasseDocumentBuilder;
 import com.vehiclub.api.services.builder.LiasseHtmlBuilder;
 import com.vehiclub.api.services.builder.LiassePdfBuilder;
+import com.vehiclub.api.services.factory.VehiculeFactory;
 import com.vehiclub.api.services.factorymethod.CommandeComptantCreator;
 import com.vehiclub.api.services.factorymethod.CommandeCreditCreator;
 import com.vehiclub.api.services.factorymethod.CommandeCreator;
 import com.vehiclub.api.services.iterator.CatalogueVehicules;
 import com.vehiclub.api.services.iterator.Iterateur;
+import com.vehiclub.api.services.singleton.LiasseVierge;
+import com.vehiclub.api.services.templatemethod.CalculateurCommande;
+import com.vehiclub.api.services.templatemethod.CalculateurCommandeFrance;
+import com.vehiclub.api.services.templatemethod.CalculateurCommandeSuisse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import java.io.IOException;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -53,19 +58,14 @@ public class VehiculeService {
         return vehicules;
     }
 
-    // Méthode pour le contrôleur (avec MultipartFile)
     public Vehicule createVehicule(Vehicule vehicule, MultipartFile imageFile, VehiculeFactory factory) {
-        // Upload de l'image sur Cloudinary
-        String imageUrl = cloudinaryService.uploadFile(imageFile);
+        String imageUrl = imageFile != null ? cloudinaryService.uploadFile(imageFile) : null;
         vehicule.setImage(imageUrl);
-
-        // Logique de création existante
         vehicule.setMoteur(factory.createMoteur());
         System.out.println("Création -> " + vehicule.getFullDescription());
         return vehiculeRepository.save(vehicule);
     }
 
-    // Méthode surchargée pour le seeder (avec byte[] et filename)
     public Vehicule createVehicule(Vehicule vehicule, byte[] imageBytes, String filename, VehiculeFactory factory) throws IOException {
         // Upload de l'image sur Cloudinary
         String imageUrl = cloudinaryService.uploadFile(imageBytes, filename);
@@ -77,11 +77,45 @@ public class VehiculeService {
         return vehiculeRepository.save(vehicule);
     }
 
+    
+    public Optional<Commande> createCommande(List<OrderItem> items, User user, String typeCommande, String paysLivraison) {
+        double prixBaseTotal = items.stream().mapToDouble(item -> {
+            double vehiclePrice = item.getVehicule().getBasePrice() - item.getVehicule().getSaleDiscount();
+            double optionsPrice = item.getVehicule().getAvailableOptions().stream()
+                .filter(opt -> item.getSelectedOptionsIds().contains(opt.getId()))
+                .mapToDouble(opt -> opt.getPrice())
+                .sum();
+            return (vehiclePrice + optionsPrice) * item.getQuantity();
+        }).sum();
+
+        CalculateurCommande calculateur;
+        if ("France".equalsIgnoreCase(paysLivraison)) {
+            calculateur = new CalculateurCommandeFrance();
+        } else if ("Suisse".equalsIgnoreCase(paysLivraison)) {
+            calculateur = new CalculateurCommandeSuisse();
+        } else {
+            calculateur = new CalculateurCommandeFrance(); // Défaut
+        }
+        double montantTotal = calculateur.calculerMontantTotal(prixBaseTotal);
+
+        CommandeCreator creator;
+        if ("comptant".equalsIgnoreCase(typeCommande)) {
+            creator = new CommandeComptantCreator();
+        } else if ("credit".equalsIgnoreCase(typeCommande)) {
+            creator = new CommandeCreditCreator();
+        } else {
+            return Optional.empty();
+        }
+        
+        Commande commande = creator.createCommande(items, user, paysLivraison);
+        commande.setMontantTotal(montantTotal);
+        return Optional.of(commandeRepository.save(commande));
+    }
+
     public Optional<Liasse> generateLiasse(Long vehiculeId, String format) {
         return vehiculeRepository.findById(vehiculeId).map(vehicule -> {
             DirecteurLiasse directeur = new DirecteurLiasse();
             LiasseDocumentBuilder builder;
-
             if ("pdf".equalsIgnoreCase(format)) {
                 builder = new LiassePdfBuilder();
             } else if ("html".equalsIgnoreCase(format)) {
@@ -89,25 +123,8 @@ public class VehiculeService {
             } else {
                 return null;
             }
-
             directeur.setBuilder(builder);
             return directeur.buildFullLiasse(vehicule);
-        });
-    }
-
-    public Optional<Commande> createCommande(Long vehiculeId, String typeCommande, String paysLivraison) {
-        return vehiculeRepository.findById(vehiculeId).map(vehicule -> {
-            CommandeCreator creator;
-            if ("comptant".equalsIgnoreCase(typeCommande)) {
-                creator = new CommandeComptantCreator();
-            } else if ("credit".equalsIgnoreCase(typeCommande)) {
-                creator = new CommandeCreditCreator();
-            } else {
-                return null;
-            }
-
-            Commande commande = creator.creerEtPreparerCommande(vehicule, vehicule.getBasePrice(), paysLivraison);
-            return commandeRepository.save(commande);
         });
     }
 
@@ -140,13 +157,11 @@ public class VehiculeService {
         liasseVierge.addDocument(new HtmlDocument(type, content));
     }
 
-    // Méthodes pour le patron Command
     public void appliquerRemise(Vehicule vehicule, double pourcentageRemise) {
         double nouvelleRemise = vehicule.getBasePrice() * (pourcentageRemise / 100.0);
         vehicule.setSaleDiscount(nouvelleRemise);
         vehicule.setOnSale(true);
         vehiculeRepository.save(vehicule);
-        System.out.println("Remise de " + pourcentageRemise + "% appliquée au véhicule " + vehicule.getName());
     }
 
     public Optional<Vehicule> updatePrix(Long vehiculeId, double prix) {

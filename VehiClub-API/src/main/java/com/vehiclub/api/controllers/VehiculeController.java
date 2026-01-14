@@ -94,39 +94,6 @@ public class VehiculeController {
         }).orElse(ResponseEntity.notFound().build());
     }
 
-    // Endpoints pour les commandes
-    @PostMapping("/commandes")
-    public ResponseEntity<Commande> createCommande(@RequestBody Map<String, String> body) {
-        Long vehiculeId = Long.parseLong(body.get("vehiculeId"));
-        String typeCommande = body.get("typeCommande");
-        String paysLivraison = body.get("paysLivraison");
-
-        return vehiculeService.createCommande(vehiculeId, typeCommande, paysLivraison)
-                .map(c -> ResponseEntity.status(HttpStatus.CREATED).body(c))
-                .orElse(ResponseEntity.badRequest().build());
-    }
-
-    @GetMapping("/commandes/{id}")
-    public ResponseEntity<Commande> getCommande(@PathVariable Long id) {
-        return vehiculeService.getCommandeById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    @PutMapping("/commandes/{id}/valider")
-    public ResponseEntity<Commande> validerCommande(@PathVariable Long id) {
-        return vehiculeService.validerCommande(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    @PutMapping("/commandes/{id}/approuver-credit")
-    public ResponseEntity<Commande> approuverCreditCommande(@PathVariable Long id) {
-        return vehiculeService.approuverCreditCommande(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
-
     // Endpoints pour le Singleton LiasseVierge
     @GetMapping("/liasse-vierge")
     public ResponseEntity<LiasseVierge> getLiasseVierge() {

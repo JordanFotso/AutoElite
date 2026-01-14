@@ -1,10 +1,11 @@
 package com.vehiclub.api.domain.commande;
 
-import com.vehiclub.api.domain.Vehicule;
+import com.vehiclub.api.domain.User;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -17,46 +18,32 @@ public abstract class Commande {
     @GeneratedValue
     private Long id;
 
-    private LocalDateTime dateCommande;
-    private double montantInitial; // Prix de base avant taxes et remises
-    private double montantTotal;   // Prix final
-    private String paysLivraison;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "commande_id")
+    private List<OrderItem> items;
 
     @ManyToOne
-    @JoinColumn(name = "vehicule_id")
-    private Vehicule vehicule;
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    private LocalDateTime dateCommande;
+    private double montantTotal;
+    private String paysLivraison;
 
     @Enumerated(EnumType.STRING)
     private StatutCommande status;
 
-    public Commande(Vehicule vehicule, double montantInitial, String paysLivraison) {
-        this.vehicule = vehicule;
-        this.montantInitial = montantInitial;
+    public Commande(List<OrderItem> items, User user, String paysLivraison) {
+        this.items = items;
+        this.user = user;
         this.paysLivraison = paysLivraison;
         this.dateCommande = LocalDateTime.now();
         this.status = StatutCommande.EN_COURS;
     }
 
-    // La Template Method
-    public final void calculerMontantTotal() {
-        double prixBase = this.montantInitial;
-        double taxes = calculerTaxes(prixBase, this.paysLivraison);
-        double frais = calculerFrais(prixBase); // "Hook" pour les frais supplémentaires
-
-        this.montantTotal = prixBase + taxes + frais;
-    }
-
-    protected abstract double calculerTaxes(double prixBase, String paysLivraison);
-
-    // "Hook" - une étape optionnelle avec une implémentation par défaut
-    protected double calculerFrais(double prixBase) {
-        return 0.0;
-    }
-
     public abstract String getTypeCommande();
     public abstract boolean validerCommande();
 
-    // Enum pour le statut de la commande
     public enum StatutCommande {
         EN_COURS, VALIDEE, LIVREE, ANNULEE
     }
