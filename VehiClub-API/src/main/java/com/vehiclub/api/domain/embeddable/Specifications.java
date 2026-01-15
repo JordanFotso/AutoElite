@@ -10,4 +10,8 @@ public class Specifications {
     private String power;
     private String acceleration;
     private String topSpeed;
+    public String getEngine(){
+        return this.engine;
+    }
 }
+

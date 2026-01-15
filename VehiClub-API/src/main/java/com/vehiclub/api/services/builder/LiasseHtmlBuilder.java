@@ -45,7 +45,7 @@ public class LiasseHtmlBuilder implements LiasseDocumentBuilder {
 
     public String generateDemandeImmatriculationHtml(Commande commande) {
         StringBuilder content = new StringBuilder();
-        content.append("<!DOCTYPE html><html lang=\"fr\"><head><meta charset=\"UTF-8\"><title>Demande d'Immatriculation - CMD-").append(commande.getId()).append("</title>");
+        content.append("<!DOCTYPE html><html lang=\"fr\"><head><meta charset=\"UTF-8\"/><title>Demande d'Immatriculation - CMD-").append(commande.getId()).append("</title>");
         content.append("<style>body { font-family: 'Segoe UI', Arial, sans-serif; margin: 40px; color: #1a1a1a; } .header { text-align: center; border-bottom: 3px solid #c9a227; padding-bottom: 20px; margin-bottom: 30px; } .logo { font-size: 28px; font-weight: bold; color: #c9a227; } .document-title { font-size: 22px; margin-top: 15px; color: #333; } .section { margin: 25px 0; padding: 20px; background: #f8f8f8; border-radius: 8px; } .section-title { font-size: 16px; font-weight: bold; color: #c9a227; margin-bottom: 15px; text-transform: uppercase; } .field { margin: 10px 0; display: flex; } .field-label { font-weight: 600; width: 200px; color: #666; } .field-value { color: #1a1a1a; } .footer { margin-top: 40px; text-align: center; font-size: 12px; color: #888; } .signature-box { margin-top: 40px; border: 1px dashed #ccc; padding: 30px; text-align: center; }</style>");
         content.append("</head><body><div class=\"header\"><div class=\"logo\">AutoÉlite</div><div class=\"document-title\">Demande d'Immatriculation</div><div style=\"font-size: 14px; color: #666; margin-top: 10px;\">Référence: CMD-").append(commande.getId()).append("</div></div>");
         
@@ -62,7 +62,7 @@ public class LiasseHtmlBuilder implements LiasseDocumentBuilder {
             content.append("<div class=\"field\"><span class=\"field-label\">Véhicule:</span><span class=\"field-value\">").append(v.getBrand()).append(" ").append(v.getName()).append("</span></div>");
             content.append("<div class=\"field\"><span class=\"field-label\">Modèle:</span><span class=\"field-value\">").append(v.getModel()).append(" (").append(v.getYear()).append(")</span></div>");
             content.append("<div class=\"field\"><span class=\"field-label\">Type:</span><span class=\"field-value\">").append(v.getType()).append("</span></div>");
-            content.append("<div class=\"field\"><span class=\"field-label\">Motorisation:</span><span class=\"field-value\">").append(v.getMoteur().getEnergie()).append("</span></div>");
+            content.append("<div class=\"field\"><span class=\"field-label\">Motorisation:</span><span class=\"field-value\">").append(v.getEnergie()).append("</span></div>");
             content.append("</div>");
         }
         content.append("</div>");
@@ -74,7 +74,7 @@ public class LiasseHtmlBuilder implements LiasseDocumentBuilder {
     
     public String generateCertificatCessionHtml(Commande commande) {
         StringBuilder content = new StringBuilder();
-        content.append("<!DOCTYPE html><html lang=\"fr\"><head><meta charset=\"UTF-8\"><title>Certificat de Cession - CMD-").append(commande.getId()).append("</title>");
+        content.append("<!DOCTYPE html><html lang=\"fr\"><head><meta charset=\"UTF-8\"/><title>Certificat de Cession - CMD-").append(commande.getId()).append("</title>");
         content.append("<style>body { font-family: 'Segoe UI', Arial, sans-serif; margin: 40px; color: #1a1a1a; } .header { text-align: center; border-bottom: 3px solid #c9a227; padding-bottom: 20px; margin-bottom: 30px; } .logo { font-size: 28px; font-weight: bold; color: #c9a227; } .document-title { font-size: 22px; margin-top: 15px; color: #333; } .official { background: #f0f0f0; padding: 10px; text-align: center; font-weight: bold; color: #666; margin-top: 10px; } .section { margin: 25px 0; padding: 20px; background: #f8f8f8; border-radius: 8px; } .section-title { font-size: 16px; font-weight: bold; color: #c9a227; margin-bottom: 15px; text-transform: uppercase; } .field { margin: 10px 0; display: flex; } .field-label { font-weight: 600; width: 200px; color: #666; } .field-value { color: #1a1a1a; } .footer { margin-top: 40px; text-align: center; font-size: 12px; color: #888; } .dual-signature { display: flex; justify-content: space-around; margin-top: 40px; } .signature-box { border: 1px dashed #ccc; padding: 30px; text-align: center; width: 40%; }</style>");
         content.append("</head><body><div class=\"header\"><div class=\"logo\">AutoÉlite</div><div class=\"document-title\">Certificat de Cession</div><div class=\"official\">DOCUMENT OFFICIEL DE TRANSFERT DE PROPRIÉTÉ</div></div>");
 
@@ -94,7 +94,7 @@ public class LiasseHtmlBuilder implements LiasseDocumentBuilder {
 
     public String generateBonCommandeHtml(Commande commande) {
         StringBuilder content = new StringBuilder();
-        content.append("<!DOCTYPE html><html lang=\"fr\"><head><meta charset=\"UTF-8\"><title>Bon de Commande - CMD-").append(commande.getId()).append("</title>");
+        content.append("<!DOCTYPE html><html lang=\"fr\"><head><meta charset=\"UTF-8\"/><title>Bon de Commande - CMD-").append(commande.getId()).append("</title>");
         content.append("<style>body { font-family: 'Segoe UI', Arial, sans-serif; margin: 40px; color: #1a1a1a; } .header { text-align: center; border-bottom: 3px solid #c9a227; padding-bottom: 20px; margin-bottom: 30px; } .logo { font-size: 28px; font-weight: bold; color: #c9a227; } .document-title { font-size: 22px; margin-top: 15px; color: #333; } .order-ref { background: #c9a227; color: white; padding: 8px 20px; display: inline-block; margin-top: 10px; border-radius: 4px; } .section { margin: 25px 0; padding: 20px; background: #f8f8f8; border-radius: 8px; } .section-title { font-size: 16px; font-weight: bold; color: #c9a227; margin-bottom: 15px; text-transform: uppercase; } .table { width: 100%; border-collapse: collapse; margin-top: 10px; } .table th { background: #c9a227; color: white; padding: 12px; text-align: left; } .table td { padding: 12px; border-bottom: 1px solid #ddd; } .table tr:hover { background: #f0f0f0; } .total-row { background: #1a1a1a !important; color: white; font-weight: bold; } .total-row:hover { background: #1a1a1a !important; } .footer { margin-top: 40px; text-align: center; font-size: 12px; color: #888; } .status { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; } .status-pending { background: #fef3c7; color: #d97706; } .status-validated { background: #dbeafe; color: #2563eb; } .status-delivered { background: #d1fae5; color: #059669; } .status-cancelled { background: #fee2e2; color: #dc2626; }</style>");
         content.append("</head><body><div class=\"header\"><div class=\"logo\">AutoÉlite</div><div class=\"document-title\">Bon de Commande</div><div class=\"order-ref\">CMD-").append(commande.getId()).append("</div></div>");
 
@@ -106,7 +106,7 @@ public class LiasseHtmlBuilder implements LiasseDocumentBuilder {
         for (OrderItem item : commande.getItems()) {
             Vehicule v = item.getVehicule();
             double totalItemPrice = (v.getBasePrice() - v.getSaleDiscount()) * item.getQuantity();
-            content.append("<tr><td><strong>").append(v.getBrand()).append(" ").append(v.getName()).append("</strong><br><span style=\"font-size: 12px; color: #666;\">").append(v.getModel()).append(" (").append(v.getYear()).append(")</span></td><td>").append(item.getQuantity()).append("</td><td style=\"text-align: right;\">").append(formatPrice(totalItemPrice)).append("</td></tr>");
+            content.append("<tr><td><strong>").append(v.getBrand()).append(" ").append(v.getName()).append("</strong><br /><span style=\"font-size: 12px; color: #666;\">").append(v.getModel()).append(" (").append(v.getYear()).append(")</span></td><td>").append(item.getQuantity()).append("</td><td style=\"text-align: right;\">").append(formatPrice(totalItemPrice)).append("</td></tr>");
         }
         content.append("</tbody></table></div>");
 

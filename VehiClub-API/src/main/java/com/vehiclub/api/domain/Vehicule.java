@@ -38,6 +38,9 @@ public class Vehicule {
 
     @Embedded
     private Specifications specifications;
+    public String getEnergie(){
+        return this.specifications.getEngine();
+    }
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "vehicule_id")
