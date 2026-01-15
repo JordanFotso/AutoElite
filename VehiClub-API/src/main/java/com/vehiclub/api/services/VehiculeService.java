@@ -39,13 +39,22 @@ public class VehiculeService {
     private final CommandeRepository commandeRepository;
     private final LiasseVierge liasseVierge;
     private final CloudinaryService cloudinaryService;
+    private final LiasseHtmlBuilder liasseHtmlBuilder; // Injected
+    private final LiassePdfBuilder liassePdfBuilder;   // Injected
 
     @Autowired
-    public VehiculeService(VehiculeRepository vehiculeRepository, CommandeRepository commandeRepository, LiasseVierge liasseVierge, CloudinaryService cloudinaryService) {
+    public VehiculeService(VehiculeRepository vehiculeRepository,
+                           CommandeRepository commandeRepository,
+                           LiasseVierge liasseVierge,
+                           CloudinaryService cloudinaryService,
+                           LiasseHtmlBuilder liasseHtmlBuilder,
+                           LiassePdfBuilder liassePdfBuilder) {
         this.vehiculeRepository = vehiculeRepository;
         this.commandeRepository = commandeRepository;
         this.liasseVierge = liasseVierge;
         this.cloudinaryService = cloudinaryService;
+        this.liasseHtmlBuilder = liasseHtmlBuilder;
+        this.liassePdfBuilder = liassePdfBuilder;
     }
 
     public List<Vehicule> getVehiculesFromIterator() {
@@ -112,19 +121,19 @@ public class VehiculeService {
         return Optional.of(commandeRepository.save(commande));
     }
 
-    public Optional<Liasse> generateLiasse(Long vehiculeId, String format) {
-        return vehiculeRepository.findById(vehiculeId).map(vehicule -> {
+    public Optional<Liasse> generateLiasseForCommande(Long commandeId, String format) {
+        return commandeRepository.findById(commandeId).map(commande -> {
             DirecteurLiasse directeur = new DirecteurLiasse();
             LiasseDocumentBuilder builder;
             if ("pdf".equalsIgnoreCase(format)) {
-                builder = new LiassePdfBuilder();
+                builder = liassePdfBuilder; 
             } else if ("html".equalsIgnoreCase(format)) {
-                builder = new LiasseHtmlBuilder();
+                builder = liasseHtmlBuilder;
             } else {
                 return null;
             }
             directeur.setBuilder(builder);
-            return directeur.buildFullLiasse(vehicule);
+            return directeur.buildFullLiasse(commande);
         });
     }
 
@@ -173,6 +182,10 @@ public class VehiculeService {
 
     public Optional<Vehicule> getVehiculeById(Long vehiculeId) {
         return vehiculeRepository.findById(vehiculeId);
+    }
+
+    public List<Commande> getCommandesByUser(User user) {
+        return commandeRepository.findByUser(user);
     }
 
     public List<Vehicule> getVehiculesEnPromotion() {

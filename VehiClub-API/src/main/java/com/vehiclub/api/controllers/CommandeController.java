@@ -6,6 +6,7 @@ import com.vehiclub.api.domain.commande.OrderItem;
 import com.vehiclub.api.dto.CommandeRequestDTO;
 import com.vehiclub.api.repositories.UserRepository;
 import com.vehiclub.api.services.VehiculeService;
+import com.vehiclub.api.services.builder.Liasse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -13,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -48,6 +50,21 @@ public class CommandeController {
             )
             .map(ResponseEntity::ok)
             .orElse(ResponseEntity.badRequest().build());
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<List<Commande>> getCurrentUserOrders(@AuthenticationPrincipal UserDetails userDetails) {
+        User user = userRepository.findByEmail(userDetails.getUsername())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        List<Commande> commandes = vehiculeService.getCommandesByUser(user);
+        return ResponseEntity.ok(commandes);
+    }
+
+    @GetMapping("/{id}/liasse")
+    public ResponseEntity<Liasse> getLiasse(@PathVariable Long id, @RequestParam String format) {
+        return vehiculeService.generateLiasseForCommande(id, format)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.badRequest().build());
     }
 
     @GetMapping("/{id}")

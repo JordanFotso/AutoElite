@@ -1,45 +1,66 @@
 package com.vehiclub.api.services.builder;
 
-import com.vehiclub.api.domain.Vehicule;
-import com.vehiclub.api.services.adapter.PdfDocumentAdapter;
-import com.vehiclub.api.services.adapter.PdfGeneratorService;
+import com.vehiclub.api.domain.commande.Commande;
+import com.vehiclub.api.domain.documents.PdfDocument;
+import com.vehiclub.api.services.utils.HtmlToPdfConverter;
+import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component // Rendre ce builder un bean Spring pour l'injection du service
+import com.vehiclub.api.domain.documents.PdfDocument;
+
+@Component
 public class LiassePdfBuilder implements LiasseDocumentBuilder {
     private Liasse liasse = new Liasse();
-    private final PdfGeneratorService pdfGeneratorService;
+    private final HtmlToPdfConverter htmlToPdfConverter;
+    private final LiasseHtmlBuilder liasseHtmlBuilder; // To reuse HTML generation logic
 
-    // Injection du service via constructeur
     @Autowired
-    public LiassePdfBuilder(PdfGeneratorService pdfGeneratorService) {
-        this.pdfGeneratorService = pdfGeneratorService;
-    }
-
-    // Le constructeur par défaut est nécessaire si Spring ne gère pas ce bean
-    // ou si on veut l'instancier manuellement. Ici, on va s'assurer qu'il est géré par Spring.
-    public LiassePdfBuilder() {
-        this.pdfGeneratorService = new PdfGeneratorService(); // Fallback ou pour tests hors Spring
+    public LiassePdfBuilder(HtmlToPdfConverter htmlToPdfConverter, LiasseHtmlBuilder liasseHtmlBuilder) {
+        this.htmlToPdfConverter = htmlToPdfConverter;
+        this.liasseHtmlBuilder = liasseHtmlBuilder;
     }
 
     @Override
-    public void buildDemandeImmatriculation(Vehicule vehicule) {
-        liasse.addDocument(new PdfDocumentAdapter(pdfGeneratorService, "Demande d'Immatriculation", "Contenu pour l'immatriculation du " + vehicule.getName()));
+    public void buildDemandeImmatriculation(Commande commande) {
+        try {
+            String htmlContent = liasseHtmlBuilder.generateDemandeImmatriculationHtml(commande);
+            byte[] pdfBytes = htmlToPdfConverter.convertHtmlToPdf(htmlContent);
+            liasse.addDocument(new PdfDocument("demande_immatriculation", pdfBytes));
+        } catch (IOException e) {
+            System.err.println("Erreur lors de la génération du PDF de la demande d'immatriculation: " + e.getMessage());
+            // Optionally add a fallback or rethrow a custom exception
+        }
     }
 
     @Override
-    public void buildCertificatCession(Vehicule vehicule) {
-        liasse.addDocument(new PdfDocumentAdapter(pdfGeneratorService, "Certificat de Cession", "Contenu pour la cession du " + vehicule.getName()));
+    public void buildCertificatCession(Commande commande) {
+        try {
+            String htmlContent = liasseHtmlBuilder.generateCertificatCessionHtml(commande);
+            byte[] pdfBytes = htmlToPdfConverter.convertHtmlToPdf(htmlContent);
+            liasse.addDocument(new PdfDocument("certificat_cession", pdfBytes));
+        } catch (IOException e) {
+            System.err.println("Erreur lors de la génération du PDF du certificat de cession: " + e.getMessage());
+            // Optionally add a fallback or rethrow a custom exception
+        }
     }
 
     @Override
-    public void buildBonCommande(Vehicule vehicule) {
-        liasse.addDocument(new PdfDocumentAdapter(pdfGeneratorService, "Bon de Commande", "Contenu pour la commande du " + vehicule.getName()));
+    public void buildBonCommande(Commande commande) {
+        try {
+            String htmlContent = liasseHtmlBuilder.generateBonCommandeHtml(commande);
+            byte[] pdfBytes = htmlToPdfConverter.convertHtmlToPdf(htmlContent);
+            liasse.addDocument(new PdfDocument("bon_commande", pdfBytes));
+        } catch (IOException e) {
+            System.err.println("Erreur lors de la génération du PDF du bon de commande: " + e.getMessage());
+            // Optionally add a fallback or rethrow a custom exception
+        }
     }
 
     @Override
     public Liasse getResult() {
-        return liasse;
+        Liasse result = this.liasse;
+        this.liasse = new Liasse(); // Reset for next build
+        return result;
     }
 }

@@ -1,6 +1,6 @@
 package com.vehiclub.api.services.builder;
 
-import com.vehiclub.api.domain.Vehicule;
+import com.vehiclub.api.domain.commande.Commande;
 
 public class DirecteurLiasse {
     private LiasseDocumentBuilder builder;
@@ -9,10 +9,10 @@ public class DirecteurLiasse {
         this.builder = builder;
     }
 
-    public Liasse buildFullLiasse(Vehicule vehicule) {
-        builder.buildDemandeImmatriculation(vehicule);
-        builder.buildCertificatCession(vehicule);
-        builder.buildBonCommande(vehicule);
+    public Liasse buildFullLiasse(Commande commande) {
+        builder.buildDemandeImmatriculation(commande);
+        builder.buildCertificatCession(commande);
+        builder.buildBonCommande(commande);
         return builder.getResult();
     }
 }

@@ -60,13 +60,6 @@ public class VehiculeController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/vehicules/{id}/liasse")
-    public ResponseEntity<Liasse> getLiasse(@PathVariable Long id, @RequestParam String format) {
-        return vehiculeService.generateLiasse(id, format)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.badRequest().build());
-    }
-
     @GetMapping("/vehicules/catalogue")
     public ResponseEntity<List<Vehicule>> getCatalogue() {
         List<Vehicule> vehicules = vehiculeService.getVehiculesFromIterator();

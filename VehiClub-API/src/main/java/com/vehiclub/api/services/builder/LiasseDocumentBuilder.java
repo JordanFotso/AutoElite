@@ -1,11 +1,10 @@
 package com.vehiclub.api.services.builder;
 
-import com.vehiclub.api.domain.Vehicule;
-import com.vehiclub.api.domain.documents.Document;
+import com.vehiclub.api.domain.commande.Commande;
 
 public interface LiasseDocumentBuilder {
-    void buildDemandeImmatriculation(Vehicule vehicule);
-    void buildCertificatCession(Vehicule vehicule);
-    void buildBonCommande(Vehicule vehicule);
+    void buildDemandeImmatriculation(Commande commande);
+    void buildCertificatCession(Commande commande);
+    void buildBonCommande(Commande commande);
     Liasse getResult();
 }

@@ -4,6 +4,7 @@ import com.vehiclub.api.config.security.JwtTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -41,9 +42,11 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(authz -> authz
+                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // Autoriser les requêtes preflight CORS
                 .requestMatchers("/api/auth/**").permitAll() // Endpoints d'authentification publics
                 .requestMatchers("/api/vehicules/catalogue").permitAll() // Le catalogue est public
                 .requestMatchers("/api/vehicules/{id}").permitAll() // Le détail d'un véhicule est public
+                .requestMatchers(HttpMethod.GET, "/api/commandes/*/liasse").permitAll() // Autoriser la génération de liasse de commande
                 .anyRequest().authenticated() // Toutes les autres requêtes nécessitent une authentification
             );
 
