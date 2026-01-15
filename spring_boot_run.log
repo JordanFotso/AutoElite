@@ -1,0 +1,251 @@
+[[1;34mINFO[m] Scanning for projects...
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--------------------------< [0;36mcom.vehiclub:api[0;1m >--------------------------[m
+[[1;34mINFO[m] [1mBuilding VehiClubAPI 0.0.1-SNAPSHOT[m
+[[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-clean-plugin:3.5.0:clean[m [1m(default-clean)[m @ [36mapi[0;1m ---[m
+[[1;34mINFO[m] Deleting /home/jordan43/Bureau/projet/java/VehiClub/VehiClub-API/target
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m>>> [0;32mspring-boot-maven-plugin:4.0.1:run[m [1m(default-cli)[0;1m > [0;1mtest-compile[m @ [36mapi[0;1m >>>[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.3.1:resources[m [1m(default-resources)[m @ [36mapi[0;1m ---[m
+[[1;34mINFO[m] Copying 1 resource from src/main/resources to target/classes
+[[1;34mINFO[m] Copying 15 resources from src/main/resources to target/classes
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.13.0:compile[m [1m(default-compile)[m @ [36mapi[0;1m ---[m
+[[1;34mINFO[m] Recompiling the module because of [1mchanged source code[m.
+[[1;34mINFO[m] Compiling 61 source files with javac [debug parameters release 22] to target/classes
+[[1;34mINFO[m] Annotation processing is enabled because one or more processors were found
+  on the class path. A future release of javac may disable annotation processing
+  unless at least one processor is specified by name (-processor), or a search
+  path is specified (--processor-path, --processor-module-path), or annotation
+  processing is enabled explicitly (-proc:only, -proc:full).
+  Use -Xlint:-options to suppress this message.
+  Use -proc:none to disable annotation processing.
+[[1;34mINFO[m] /home/jordan43/Bureau/projet/java/VehiClub/VehiClub-API/src/main/java/com/vehiclub/api/config/security/JwtTokenProvider.java: Some input files use or override a deprecated API.
+[[1;34mINFO[m] /home/jordan43/Bureau/projet/java/VehiClub/VehiClub-API/src/main/java/com/vehiclub/api/config/security/JwtTokenProvider.java: Recompile with -Xlint:deprecation for details.
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.3.1:testResources[m [1m(default-testResources)[m @ [36mapi[0;1m ---[m
+[[1;34mINFO[m] skip non existing resourceDirectory /home/jordan43/Bureau/projet/java/VehiClub/VehiClub-API/src/test/resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.13.0:testCompile[m [1m(default-testCompile)[m @ [36mapi[0;1m ---[m
+[[1;34mINFO[m] Recompiling the module because of [1mchanged dependency[m.
+[[1;34mINFO[m] Compiling 1 source file with javac [debug parameters release 22] to target/test-classes
+[[1;34mINFO[m] Annotation processing is enabled because one or more processors were found
+  on the class path. A future release of javac may disable annotation processing
+  unless at least one processor is specified by name (-processor), or a search
+  path is specified (--processor-path, --processor-module-path), or annotation
+  processing is enabled explicitly (-proc:only, -proc:full).
+  Use -Xlint:-options to suppress this message.
+  Use -proc:none to disable annotation processing.
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m<<< [0;32mspring-boot-maven-plugin:4.0.1:run[m [1m(default-cli)[0;1m < [0;1mtest-compile[m @ [36mapi[0;1m <<<[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mspring-boot-maven-plugin:4.0.1:run[m [1m(default-cli)[m @ [36mapi[0;1m ---[m
+[[1;34mINFO[m] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.1)
+
+2026-01-15T15:15:03.301+01:00  INFO 187804 --- [VehiClubAPI] [           main] c.vehiclub.api.VehiClubApiApplication    : Starting VehiClubApiApplication using Java 22 with PID 187804 (/home/jordan43/Bureau/projet/java/VehiClub/VehiClub-API/target/classes started by jordan43 in /home/jordan43/Bureau/projet/java/VehiClub/VehiClub-API)
+2026-01-15T15:15:03.315+01:00  INFO 187804 --- [VehiClubAPI] [           main] c.vehiclub.api.VehiClubApiApplication    : No active profile set, falling back to 1 default profile: "default"
+2026-01-15T15:15:06.513+01:00  INFO 187804 --- [VehiClubAPI] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-15T15:15:06.712+01:00  INFO 187804 --- [VehiClubAPI] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 171 ms. Found 4 JPA repository interfaces.
+2026-01-15T15:15:08.340+01:00  INFO 187804 --- [VehiClubAPI] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-01-15T15:15:08.380+01:00  INFO 187804 --- [VehiClubAPI] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-01-15T15:15:08.381+01:00  INFO 187804 --- [VehiClubAPI] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.15]
+2026-01-15T15:15:08.512+01:00  INFO 187804 --- [VehiClubAPI] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 4958 ms
+2026-01-15T15:15:09.382+01:00  INFO 187804 --- [VehiClubAPI] [           main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-01-15T15:15:09.519+01:00  INFO 187804 --- [VehiClubAPI] [           main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.0.Final
+2026-01-15T15:15:10.916+01:00  INFO 187804 --- [VehiClubAPI] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-15T15:15:11.005+01:00  INFO 187804 --- [VehiClubAPI] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-01-15T15:15:11.234+01:00  INFO 187804 --- [VehiClubAPI] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@2d7aa291
+2026-01-15T15:15:11.237+01:00  INFO 187804 --- [VehiClubAPI] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-01-15T15:15:11.310+01:00  WARN 187804 --- [VehiClubAPI] [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-01-15T15:15:11.414+01:00  INFO 187804 --- [VehiClubAPI] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5433/vehiclub]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 13.23
+	Default catalog/schema: vehiclub/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-01-15T15:15:15.634+01:00  INFO 187804 --- [VehiClubAPI] [           main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-01-15T15:15:15.687+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : set client_min_messages = WARNING
+Hibernate: set client_min_messages = WARNING
+2026-01-15T15:15:15.690+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : alter table if exists commande drop constraint if exists FKdoxqj5u97rh2fx400mxnviuli
+Hibernate: alter table if exists commande drop constraint if exists FKdoxqj5u97rh2fx400mxnviuli
+2026-01-15T15:15:15.717+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : alter table if exists order_item_options drop constraint if exists FK1vaaf9ood5v99wbn2wjtg4eeg
+Hibernate: alter table if exists order_item_options drop constraint if exists FK1vaaf9ood5v99wbn2wjtg4eeg
+2026-01-15T15:15:15.728+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : alter table if exists order_item drop constraint if exists FKmctofga5rumfqk47y1sgb029w
+Hibernate: alter table if exists order_item drop constraint if exists FKmctofga5rumfqk47y1sgb029w
+2026-01-15T15:15:15.739+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : alter table if exists order_item drop constraint if exists FKaeffh6h69ikluqawrvvbitni3
+Hibernate: alter table if exists order_item drop constraint if exists FKaeffh6h69ikluqawrvvbitni3
+2026-01-15T15:15:15.750+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : alter table if exists societe drop constraint if exists FKkpp9atayabw1ue320uo8f42w8
+Hibernate: alter table if exists societe drop constraint if exists FKkpp9atayabw1ue320uo8f42w8
+2026-01-15T15:15:15.762+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : alter table if exists user_roles drop constraint if exists FKhfh9dx7w3ubf1co1vdev94g3f
+Hibernate: alter table if exists user_roles drop constraint if exists FKhfh9dx7w3ubf1co1vdev94g3f
+2026-01-15T15:15:15.773+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : alter table if exists users drop constraint if exists FKlajauie9lcf9xv0r4k96leshx
+Hibernate: alter table if exists users drop constraint if exists FKlajauie9lcf9xv0r4k96leshx
+2026-01-15T15:15:15.784+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : alter table if exists vehicle_option drop constraint if exists FKoma9n2fbh7yhvb72tpnaw4svy
+Hibernate: alter table if exists vehicle_option drop constraint if exists FKoma9n2fbh7yhvb72tpnaw4svy
+2026-01-15T15:15:15.795+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : alter table if exists vehicle_option_incompatible_with drop constraint if exists FKalue9aom1ekk3ayqygggemrte
+Hibernate: alter table if exists vehicle_option_incompatible_with drop constraint if exists FKalue9aom1ekk3ayqygggemrte
+2026-01-15T15:15:15.806+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : drop table if exists commande cascade
+Hibernate: drop table if exists commande cascade
+2026-01-15T15:15:15.819+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : drop table if exists order_item_options cascade
+Hibernate: drop table if exists order_item_options cascade
+2026-01-15T15:15:15.831+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : drop table if exists order_item cascade
+Hibernate: drop table if exists order_item cascade
+2026-01-15T15:15:15.841+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : drop table if exists societe cascade
+Hibernate: drop table if exists societe cascade
+2026-01-15T15:15:15.852+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : drop table if exists user_roles cascade
+Hibernate: drop table if exists user_roles cascade
+2026-01-15T15:15:15.863+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : drop table if exists users cascade
+Hibernate: drop table if exists users cascade
+2026-01-15T15:15:15.875+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : drop table if exists vehicle_option cascade
+Hibernate: drop table if exists vehicle_option cascade
+2026-01-15T15:15:15.885+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : drop table if exists vehicle_option_incompatible_with cascade
+Hibernate: drop table if exists vehicle_option_incompatible_with cascade
+2026-01-15T15:15:15.898+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : drop table if exists vehicule cascade
+Hibernate: drop table if exists vehicule cascade
+2026-01-15T15:15:15.910+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : drop sequence if exists commande_seq
+Hibernate: drop sequence if exists commande_seq
+2026-01-15T15:15:15.918+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : drop sequence if exists order_item_seq
+Hibernate: drop sequence if exists order_item_seq
+2026-01-15T15:15:15.930+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : drop sequence if exists users_seq
+Hibernate: drop sequence if exists users_seq
+2026-01-15T15:15:15.941+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : drop sequence if exists vehicle_option_seq
+Hibernate: drop sequence if exists vehicle_option_seq
+2026-01-15T15:15:15.952+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : drop sequence if exists vehicule_seq
+Hibernate: drop sequence if exists vehicule_seq
+2026-01-15T15:15:15.972+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : create sequence commande_seq start with 1 increment by 50
+Hibernate: create sequence commande_seq start with 1 increment by 50
+2026-01-15T15:15:15.985+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : create sequence order_item_seq start with 1 increment by 50
+Hibernate: create sequence order_item_seq start with 1 increment by 50
+2026-01-15T15:15:15.997+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : create sequence users_seq start with 1 increment by 50
+Hibernate: create sequence users_seq start with 1 increment by 50
+2026-01-15T15:15:16.023+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : create sequence vehicle_option_seq start with 1 increment by 50
+Hibernate: create sequence vehicle_option_seq start with 1 increment by 50
+2026-01-15T15:15:16.041+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : create sequence vehicule_seq start with 1 increment by 50
+Hibernate: create sequence vehicule_seq start with 1 increment by 50
+2026-01-15T15:15:16.061+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : create table commande (credit_approuve boolean, montant_total float(53) not null, date_commande timestamp(6), id bigint not null, user_id bigint, type_commande varchar(31) not null check ((type_commande in ('COMPTANT','CREDIT'))), pays_livraison varchar(255), status varchar(255) check ((status in ('EN_COURS','VALIDEE','LIVREE','ANNULEE'))), primary key (id), check (type_commande <> 'CREDIT' or (credit_approuve is not null)))
+Hibernate: create table commande (credit_approuve boolean, montant_total float(53) not null, date_commande timestamp(6), id bigint not null, user_id bigint, type_commande varchar(31) not null check ((type_commande in ('COMPTANT','CREDIT'))), pays_livraison varchar(255), status varchar(255) check ((status in ('EN_COURS','VALIDEE','LIVREE','ANNULEE'))), primary key (id), check (type_commande <> 'CREDIT' or (credit_approuve is not null)))
+2026-01-15T15:15:16.176+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : create table order_item_options (order_item_id bigint not null, option_id varchar(255))
+Hibernate: create table order_item_options (order_item_id bigint not null, option_id varchar(255))
+2026-01-15T15:15:16.186+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : create table order_item (quantity integer not null, commande_id bigint, id bigint not null, vehicule_id bigint, primary key (id))
+Hibernate: create table order_item (quantity integer not null, commande_id bigint, id bigint not null, vehicule_id bigint, primary key (id))
+2026-01-15T15:15:16.242+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : create table societe (id bigint generated by default as identity, parent_id bigint, type_societe varchar(31) not null check ((type_societe in ('COMPOSITE','FEUILLE'))), nom varchar(255), primary key (id))
+Hibernate: create table societe (id bigint generated by default as identity, parent_id bigint, type_societe varchar(31) not null check ((type_societe in ('COMPOSITE','FEUILLE'))), nom varchar(255), primary key (id))
+2026-01-15T15:15:16.308+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : create table user_roles (user_id bigint not null, role varchar(255))
+Hibernate: create table user_roles (user_id bigint not null, role varchar(255))
+2026-01-15T15:15:16.320+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : create table users (id bigint not null, societe_id bigint, email varchar(255) not null unique, password varchar(255) not null, primary key (id))
+Hibernate: create table users (id bigint not null, societe_id bigint, email varchar(255) not null unique, password varchar(255) not null, primary key (id))
+2026-01-15T15:15:16.519+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : create table vehicle_option (price float(53) not null, jpa_id bigint not null, vehicule_id bigint, category varchar(255), id varchar(255) not null unique, name varchar(255), primary key (jpa_id))
+Hibernate: create table vehicle_option (price float(53) not null, jpa_id bigint not null, vehicule_id bigint, category varchar(255), id varchar(255) not null unique, name varchar(255), primary key (jpa_id))
+2026-01-15T15:15:16.684+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : create table vehicle_option_incompatible_with (vehicle_option_jpa_id bigint not null, incompatible_with varchar(255))
+Hibernate: create table vehicle_option_incompatible_with (vehicle_option_jpa_id bigint not null, incompatible_with varchar(255))
+2026-01-15T15:15:16.696+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : create table vehicule (base_price float(53) not null, in_stock_since date, is_on_sale boolean not null, sale_discount float(53) not null, year integer not null, id bigint not null, acceleration varchar(255), brand varchar(255), description varchar(255), engine varchar(255), image varchar(255), model varchar(255), name varchar(255), power varchar(255), top_speed varchar(255), type varchar(255) check ((type in ('AUTOMOBILE','SCOOTER'))), primary key (id))
+Hibernate: create table vehicule (base_price float(53) not null, in_stock_since date, is_on_sale boolean not null, sale_discount float(53) not null, year integer not null, id bigint not null, acceleration varchar(255), brand varchar(255), description varchar(255), engine varchar(255), image varchar(255), model varchar(255), name varchar(255), power varchar(255), top_speed varchar(255), type varchar(255) check ((type in ('AUTOMOBILE','SCOOTER'))), primary key (id))
+2026-01-15T15:15:16.796+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : alter table if exists commande add constraint FKdoxqj5u97rh2fx400mxnviuli foreign key (user_id) references users
+Hibernate: alter table if exists commande add constraint FKdoxqj5u97rh2fx400mxnviuli foreign key (user_id) references users
+2026-01-15T15:15:16.807+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : alter table if exists order_item_options add constraint FK1vaaf9ood5v99wbn2wjtg4eeg foreign key (order_item_id) references order_item
+Hibernate: alter table if exists order_item_options add constraint FK1vaaf9ood5v99wbn2wjtg4eeg foreign key (order_item_id) references order_item
+2026-01-15T15:15:16.819+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : alter table if exists order_item add constraint FKmctofga5rumfqk47y1sgb029w foreign key (vehicule_id) references vehicule
+Hibernate: alter table if exists order_item add constraint FKmctofga5rumfqk47y1sgb029w foreign key (vehicule_id) references vehicule
+2026-01-15T15:15:16.829+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : alter table if exists order_item add constraint FKaeffh6h69ikluqawrvvbitni3 foreign key (commande_id) references commande
+Hibernate: alter table if exists order_item add constraint FKaeffh6h69ikluqawrvvbitni3 foreign key (commande_id) references commande
+2026-01-15T15:15:16.840+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : alter table if exists societe add constraint FKkpp9atayabw1ue320uo8f42w8 foreign key (parent_id) references societe
+Hibernate: alter table if exists societe add constraint FKkpp9atayabw1ue320uo8f42w8 foreign key (parent_id) references societe
+2026-01-15T15:15:16.851+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : alter table if exists user_roles add constraint FKhfh9dx7w3ubf1co1vdev94g3f foreign key (user_id) references users
+Hibernate: alter table if exists user_roles add constraint FKhfh9dx7w3ubf1co1vdev94g3f foreign key (user_id) references users
+2026-01-15T15:15:16.862+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : alter table if exists users add constraint FKlajauie9lcf9xv0r4k96leshx foreign key (societe_id) references societe
+Hibernate: alter table if exists users add constraint FKlajauie9lcf9xv0r4k96leshx foreign key (societe_id) references societe
+2026-01-15T15:15:16.873+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : alter table if exists vehicle_option add constraint FKoma9n2fbh7yhvb72tpnaw4svy foreign key (vehicule_id) references vehicule
+Hibernate: alter table if exists vehicle_option add constraint FKoma9n2fbh7yhvb72tpnaw4svy foreign key (vehicule_id) references vehicule
+2026-01-15T15:15:16.884+01:00 DEBUG 187804 --- [VehiClubAPI] [           main] org.hibernate.SQL                        : alter table if exists vehicle_option_incompatible_with add constraint FKalue9aom1ekk3ayqygggemrte foreign key (vehicle_option_jpa_id) references vehicle_option
+Hibernate: alter table if exists vehicle_option_incompatible_with add constraint FKalue9aom1ekk3ayqygggemrte foreign key (vehicle_option_jpa_id) references vehicle_option
+2026-01-15T15:15:16.899+01:00  INFO 187804 --- [VehiClubAPI] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-15T15:15:17.099+01:00  INFO 187804 --- [VehiClubAPI] [           main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-01-15T15:15:18.109+01:00  INFO 187804 --- [VehiClubAPI] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+--- Initialisation du Singleton LiasseVierge ---
+2026-01-15T15:15:18.480+01:00  WARN 187804 --- [VehiClubAPI] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-01-15T15:15:20.353+01:00  INFO 187804 --- [VehiClubAPI] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 12 endpoints beneath base path '/actuator'
+2026-01-15T15:15:20.537+01:00  WARN 187804 --- [VehiClubAPI] [           main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2026-01-15T15:15:20.546+01:00  INFO 187804 --- [VehiClubAPI] [           main] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-15T15:15:20.551+01:00  INFO 187804 --- [VehiClubAPI] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-01-15T15:15:20.596+01:00  INFO 187804 --- [VehiClubAPI] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-01-15T15:15:20.643+01:00  INFO 187804 --- [VehiClubAPI] [           main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-01-15T15:15:20.680+01:00 ERROR 187804 --- [VehiClubAPI] [           main] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+	at org.springframework.context.support.DefaultLifecycleProcessor.doStart(DefaultLifecycleProcessor.java:423) ~[spring-context-7.0.2.jar:7.0.2]
+	at org.springframework.context.support.DefaultLifecycleProcessor.doStart(DefaultLifecycleProcessor.java:409) ~[spring-context-7.0.2.jar:7.0.2]
+	at org.springframework.context.support.DefaultLifecycleProcessor$LifecycleGroup.start(DefaultLifecycleProcessor.java:613) ~[spring-context-7.0.2.jar:7.0.2]
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75) ~[na:na]
+	at org.springframework.context.support.DefaultLifecycleProcessor.startBeans(DefaultLifecycleProcessor.java:379) ~[spring-context-7.0.2.jar:7.0.2]
+	at org.springframework.context.support.DefaultLifecycleProcessor.onRefresh(DefaultLifecycleProcessor.java:306) ~[spring-context-7.0.2.jar:7.0.2]
+	at org.springframework.context.support.AbstractApplicationContext.finishRefresh(AbstractApplicationContext.java:1012) ~[spring-context-7.0.2.jar:7.0.2]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:623) ~[spring-context-7.0.2.jar:7.0.2]
+	at org.springframework.boot.web.server.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143) ~[spring-boot-web-server-4.0.1.jar:4.0.1]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:756) ~[spring-boot-4.0.1.jar:4.0.1]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:445) ~[spring-boot-4.0.1.jar:4.0.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:321) ~[spring-boot-4.0.1.jar:4.0.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1365) ~[spring-boot-4.0.1.jar:4.0.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354) ~[spring-boot-4.0.1.jar:4.0.1]
+	at com.vehiclub.api.VehiClubApiApplication.main(VehiClubApiApplication.java:10) ~[classes/:na]
+Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat server
+	at org.springframework.boot.tomcat.TomcatWebServer.start(TomcatWebServer.java:248) ~[spring-boot-tomcat-4.0.1.jar:4.0.1]
+	at org.springframework.boot.web.server.servlet.context.WebServerStartStopLifecycle.start(WebServerStartStopLifecycle.java:44) ~[spring-boot-web-server-4.0.1.jar:4.0.1]
+	at org.springframework.context.support.DefaultLifecycleProcessor.doStart(DefaultLifecycleProcessor.java:420) ~[spring-context-7.0.2.jar:7.0.2]
+	... 14 common frames omitted
+Caused by: java.lang.IllegalArgumentException: standardService.connector.startFailed
+	at org.apache.catalina.core.StandardService.addConnector(StandardService.java:220) ~[tomcat-embed-core-11.0.15.jar:11.0.15]
+	at org.springframework.boot.tomcat.TomcatWebServer.addPreviouslyRemovedConnectors(TomcatWebServer.java:307) ~[spring-boot-tomcat-4.0.1.jar:4.0.1]
+	at org.springframework.boot.tomcat.TomcatWebServer.start(TomcatWebServer.java:233) ~[spring-boot-tomcat-4.0.1.jar:4.0.1]
+	... 16 common frames omitted
+Caused by: org.apache.catalina.LifecycleException: Protocol handler start failed
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1119) ~[tomcat-embed-core-11.0.15.jar:11.0.15]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164) ~[tomcat-embed-core-11.0.15.jar:11.0.15]
+	at org.apache.catalina.core.StandardService.addConnector(StandardService.java:217) ~[tomcat-embed-core-11.0.15.jar:11.0.15]
+	... 18 common frames omitted
+Caused by: java.net.BindException: Adresse déjà utilisée
+	at java.base/sun.nio.ch.Net.bind0(Native Method) ~[na:na]
+	at java.base/sun.nio.ch.Net.bind(Net.java:565) ~[na:na]
+	at java.base/sun.nio.ch.ServerSocketChannelImpl.netBind(ServerSocketChannelImpl.java:344) ~[na:na]
+	at java.base/sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:301) ~[na:na]
+	at org.apache.tomcat.util.net.NioEndpoint.initServerSocket(NioEndpoint.java:265) ~[tomcat-embed-core-11.0.15.jar:11.0.15]
+	at org.apache.tomcat.util.net.NioEndpoint.bind(NioEndpoint.java:220) ~[tomcat-embed-core-11.0.15.jar:11.0.15]
+	at org.apache.tomcat.util.net.AbstractEndpoint.bindWithCleanup(AbstractEndpoint.java:1633) ~[tomcat-embed-core-11.0.15.jar:11.0.15]
+	at org.apache.tomcat.util.net.AbstractEndpoint.start(AbstractEndpoint.java:1716) ~[tomcat-embed-core-11.0.15.jar:11.0.15]
+	at org.apache.coyote.AbstractProtocol.start(AbstractProtocol.java:644) ~[tomcat-embed-core-11.0.15.jar:11.0.15]
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1116) ~[tomcat-embed-core-11.0.15.jar:11.0.15]
+	... 20 common frames omitted
+
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] [1;31mBUILD FAILURE[m
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] Total time:  45.642 s
+[[1;34mINFO[m] Finished at: 2026-01-15T15:15:20+01:00
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;31mERROR[m] Failed to execute goal [32morg.springframework.boot:spring-boot-maven-plugin:4.0.1:run[m [1m(default-cli)[m on project [36mapi[m: [1;31mProcess terminated with exit code: 1[m -> [1m[Help 1][m
+[[1;31mERROR[m] 
+[[1;31mERROR[m] To see the full stack trace of the errors, re-run Maven with the [1m-e[m switch.
+[[1;31mERROR[m] Re-run Maven using the [1m-X[m switch to enable full debug logging.
+[[1;31mERROR[m] 
+[[1;31mERROR[m] For more information about the errors and possible solutions, please read the following articles:
+[[1;31mERROR[m] [1m[Help 1][m http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
