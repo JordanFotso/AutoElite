@@ -7,4 +7,5 @@ import org.springframework.http.ResponseEntity;
 public interface AuthService {
     ResponseEntity<?> registerCustomer(CustomerRegistrationRequest request);
     ResponseEntity<?> registerCompanyUser(CompanyUserRegistrationRequest request);
+    ResponseEntity<?> getUserDetails(String email);
 }

@@ -19,4 +19,11 @@ public class CompanyUser extends User {
     @ManyToOne
     @JoinColumn(name = "societe_id")
     private Societe societe;
+
+    private String contactPersonName;
+    private String phone;
+    private String address;
+    private String companyRegistrationNumber;
+    private String website;
+    private String companyBankAccountNumber;
 }

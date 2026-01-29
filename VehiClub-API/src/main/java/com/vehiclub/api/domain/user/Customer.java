@@ -15,4 +15,8 @@ public class Customer extends User {
 
     private String firstName;
     private String lastName;
+    private String phone;
+    private String address;
+    private String dob;
+    private String bankAccountNumber;
 }
