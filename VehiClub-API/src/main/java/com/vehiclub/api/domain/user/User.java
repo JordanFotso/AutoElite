@@ -1,6 +1,5 @@
-package com.vehiclub.api.domain;
+package com.vehiclub.api.domain.user;
 
-import com.vehiclub.api.domain.societe.composite.Societe;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,13 +7,14 @@ import lombok.NoArgsConstructor;
 import java.util.Set;
 
 @Entity
-@Table(name = "users") // "user" est un mot-clé réservé dans certaines BDD
+@Table(name = "users")
+@Inheritance(strategy = InheritanceType.JOINED)
 @Data
 @NoArgsConstructor
-public class User {
+public abstract class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(unique = true, nullable = false)
@@ -27,8 +27,4 @@ public class User {
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")
     private Set<String> roles;
-
-    @ManyToOne
-    @JoinColumn(name = "societe_id")
-    private Societe societe;
 }

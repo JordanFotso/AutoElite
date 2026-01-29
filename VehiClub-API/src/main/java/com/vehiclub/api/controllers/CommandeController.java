@@ -1,6 +1,6 @@
 package com.vehiclub.api.controllers;
 
-import com.vehiclub.api.domain.User;
+import com.vehiclub.api.domain.user.User;
 import com.vehiclub.api.domain.commande.Commande;
 import com.vehiclub.api.domain.commande.OrderItem;
 import com.vehiclub.api.dto.CommandeRequestDTO;

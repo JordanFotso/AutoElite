@@ -1,6 +1,6 @@
 package com.vehiclub.api.services.factorymethod;
 
-import com.vehiclub.api.domain.User;
+import com.vehiclub.api.domain.user.User;
 import com.vehiclub.api.domain.commande.Commande;
 import com.vehiclub.api.domain.commande.OrderItem;
 

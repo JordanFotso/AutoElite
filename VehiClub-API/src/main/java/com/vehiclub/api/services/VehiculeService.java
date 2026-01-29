@@ -1,6 +1,6 @@
 package com.vehiclub.api.services;
 
-import com.vehiclub.api.domain.User;
+import com.vehiclub.api.domain.user.User;
 import com.vehiclub.api.domain.Vehicule;
 import com.vehiclub.api.domain.commande.Commande;
 import com.vehiclub.api.domain.commande.CommandeCredit;

@@ -1,6 +1,6 @@
 package com.vehiclub.api.domain.commande;
 
-import com.vehiclub.api.domain.User;
+import com.vehiclub.api.domain.user.User;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,6 +1,6 @@
 package com.vehiclub.api.services;
 
-import com.vehiclub.api.domain.User;
+import com.vehiclub.api.domain.user.User;
 import com.vehiclub.api.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

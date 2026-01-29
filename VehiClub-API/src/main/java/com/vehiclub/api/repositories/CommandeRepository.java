@@ -1,6 +1,6 @@
 package com.vehiclub.api.repositories;
 
-import com.vehiclub.api.domain.User;
+import com.vehiclub.api.domain.user.User;
 import com.vehiclub.api.domain.commande.Commande;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
