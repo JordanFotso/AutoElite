@@ -5,9 +5,9 @@ import com.vehiclub.api.dto.CustomerRegistrationRequest;
 import com.vehiclub.api.domain.user.CompanyUser;
 import com.vehiclub.api.domain.user.Customer;
 import com.vehiclub.api.domain.user.User;
-import com.vehiclub.api.repositories.CompanyUserRepository;
-import com.vehiclub.api.repositories.CustomerRepository;
 import com.vehiclub.api.repositories.UserRepository;
+import com.vehiclub.api.repositories.CustomerRepository;
+import com.vehiclub.api.repositories.CompanyUserRepository;
 import com.vehiclub.api.services.SocieteService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,7 +60,7 @@ public class AuthServiceImpl implements AuthService {
         customer.setBankAccountNumber(request.getBankAccountNumber());
         customer.setRoles(Set.of("ROLE_CUSTOMER"));
 
-        userRepository.save(customer);
+        customerRepository.save(customer);
 
         return ResponseEntity.ok("Customer registered successfully!");
     }
@@ -88,8 +88,17 @@ public class AuthServiceImpl implements AuthService {
             return ResponseEntity.badRequest().body("Error: Societe ID is required for a company user.");
         }
 
-        userRepository.save(companyUser);
+        companyUserRepository.save(companyUser);
 
         return ResponseEntity.ok("Company user registered successfully!");
+    }
+
+    @Override
+    public ResponseEntity<?> getUserDetails(String email) {
+        Optional<User> userOptional = userRepository.findByEmail(email);
+        if (userOptional.isPresent()) {
+            return ResponseEntity.ok(userOptional.get());
+        }
+        return ResponseEntity.notFound().build();
     }
 }
