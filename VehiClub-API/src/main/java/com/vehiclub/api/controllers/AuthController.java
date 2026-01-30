@@ -12,6 +12,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.Map;
 
@@ -53,6 +55,14 @@ public class AuthController {
     @PostMapping("/register/company")
     public ResponseEntity<?> registerCompanyUser(@RequestBody CompanyUserRegistrationRequest request) {
         return authService.registerCompanyUser(request);
+    }
+
+    @GetMapping("/profile")
+    public ResponseEntity<?> getProfile(@AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails == null) {
+            return ResponseEntity.status(401).body("User not authenticated");
+        }
+        return authService.getUserDetails(userDetails.getUsername());
     }
 }
 
