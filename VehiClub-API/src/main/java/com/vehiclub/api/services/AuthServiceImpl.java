@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.Set;
+import java.util.Map;
 
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -46,7 +47,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public ResponseEntity<?> registerCustomer(CustomerRegistrationRequest request) {
         if (userRepository.findByEmail(request.getEmail()).isPresent()) {
-            return ResponseEntity.badRequest().body("Error: Email is already in use!");
+            return ResponseEntity.badRequest().body(Map.of("message", "Error: Email is already in use!"));
         }
 
         Customer customer = new Customer();
@@ -62,13 +63,13 @@ public class AuthServiceImpl implements AuthService {
 
         customerRepository.save(customer);
 
-        return ResponseEntity.ok("Customer registered successfully!");
+        return ResponseEntity.ok(Map.of("message", "Customer registered successfully!"));
     }
 
     @Override
     public ResponseEntity<?> registerCompanyUser(CompanyUserRegistrationRequest request) {
         if (userRepository.findByEmail(request.getEmail()).isPresent()) {
-            return ResponseEntity.badRequest().body("Error: Email is already in use!");
+            return ResponseEntity.badRequest().body(Map.of("message", "Error: Email is already in use!"));
         }
 
         CompanyUser companyUser = new CompanyUser();
@@ -85,12 +86,12 @@ public class AuthServiceImpl implements AuthService {
         if (request.getSocieteId() != null) {
             societeService.getSocieteById(request.getSocieteId()).ifPresent(companyUser::setSociete);
         } else {
-            return ResponseEntity.badRequest().body("Error: Societe ID is required for a company user.");
+            return ResponseEntity.badRequest().body(Map.of("message", "Error: Societe ID is required for a company user."));
         }
 
         companyUserRepository.save(companyUser);
 
-        return ResponseEntity.ok("Company user registered successfully!");
+        return ResponseEntity.ok(Map.of("message", "Company user registered successfully!"));
     }
 
     @Override

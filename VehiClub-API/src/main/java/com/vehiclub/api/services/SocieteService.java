@@ -4,6 +4,8 @@ import com.vehiclub.api.domain.societe.composite.Societe;
 import com.vehiclub.api.domain.societe.composite.SocieteComposite;
 import com.vehiclub.api.domain.societe.composite.SocieteFeuille;
 import com.vehiclub.api.repositories.SocieteRepository;
+import com.vehiclub.api.dto.CreateSocieteRequest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,15 +44,30 @@ public class SocieteService {
 
     public Societe addFiliale(Long parentId, Societe filiale) {
         return societeRepository.findById(parentId).map(parent -> {
-            if (parent instanceof SocieteComposite) {
-                SocieteComposite composite = (SocieteComposite) parent;
-                composite.add(filiale);
-                filiale.setParent(composite); // S'assurer que le parent est bien défini pour la filiale
-                return societeRepository.save(composite);
-            } else {
-                throw new UnsupportedOperationException("Impossible d'ajouter une filiale à une société feuille.");
-            }
+            SocieteComposite composite = (SocieteComposite) parent;
+            composite.add(filiale);
+            filiale.setParent(composite); // S'assurer que le parent est bien défini pour la filiale
+            return societeRepository.save(composite);
         }).orElseThrow(() -> new RuntimeException("Société parente non trouvée avec l'ID: " + parentId));
+    }
+
+    public ResponseEntity<?> createSociete(CreateSocieteRequest request) {
+        Optional<Societe> parentOptional = societeRepository.findById(request.getParentId());
+        if (parentOptional.isEmpty()) {
+            return ResponseEntity.badRequest().body("Parent company not found.");
+        }
+
+        Societe parent = parentOptional.get();
+        if (!(parent instanceof SocieteComposite)) {
+            return ResponseEntity.badRequest().body("Cannot add a subsidiary to a leaf company.");
+        }
+
+        SocieteComposite parentComposite = (SocieteComposite) parent;
+        SocieteComposite newSubsidiary = new SocieteComposite(request.getNom()); // Always create Composite
+        parentComposite.add(newSubsidiary);
+        societeRepository.save(parentComposite); // Saving the parent should cascade and save the new subsidiary
+        
+        return ResponseEntity.ok(newSubsidiary);
     }
 
     // Méthodes utilitaires pour créer des types spécifiques (pour faciliter les tests et l'utilisation)
