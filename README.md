@@ -1,4 +1,4 @@
-# VehiClub - Application de Vente de Véhicules en Ligne
+# AutoElite - Application de Vente de Véhicules en Ligne
 
 Ce projet est une application web de vente de véhicules en ligne, conçue pour illustrer l'utilisation de divers patrons de conception (Design Patterns) dans une architecture moderne.
 
