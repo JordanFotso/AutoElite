@@ -5,6 +5,7 @@ import com.vehiclub.api.dto.CustomerRegistrationRequest;
 import com.vehiclub.api.domain.user.CompanyUser;
 import com.vehiclub.api.domain.user.Customer;
 import com.vehiclub.api.domain.user.User;
+import com.vehiclub.api.domain.societe.composite.SocieteComposite; // New import
 import com.vehiclub.api.repositories.UserRepository;
 import com.vehiclub.api.repositories.CustomerRepository;
 import com.vehiclub.api.repositories.CompanyUserRepository;
@@ -72,6 +73,10 @@ public class AuthServiceImpl implements AuthService {
             return ResponseEntity.badRequest().body(Map.of("message", "Error: Email is already in use!"));
         }
 
+        // Create the root SocieteComposite for the company user
+        SocieteComposite rootSociete = new SocieteComposite(request.getCompanyName());
+        societeService.saveSociete(rootSociete); // Save the new root societe
+
         CompanyUser companyUser = new CompanyUser();
         companyUser.setEmail(request.getEmail());
         companyUser.setPassword(passwordEncoder.encode(request.getPassword()));
@@ -82,12 +87,7 @@ public class AuthServiceImpl implements AuthService {
         companyUser.setWebsite(request.getWebsite());
         companyUser.setCompanyBankAccountNumber(request.getCompanyBankAccountNumber());
         companyUser.setRoles(Set.of("ROLE_COMPANY_USER"));
-
-        if (request.getSocieteId() != null) {
-            societeService.getSocieteById(request.getSocieteId()).ifPresent(companyUser::setSociete);
-        } else {
-            return ResponseEntity.badRequest().body(Map.of("message", "Error: Societe ID is required for a company user."));
-        }
+        companyUser.setSociete(rootSociete); // Associate the company user with the new root societe
 
         companyUserRepository.save(companyUser);
 

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Map; // New import
 
 @Service
 public class SocieteService {
@@ -54,12 +55,12 @@ public class SocieteService {
     public ResponseEntity<?> createSociete(CreateSocieteRequest request) {
         Optional<Societe> parentOptional = societeRepository.findById(request.getParentId());
         if (parentOptional.isEmpty()) {
-            return ResponseEntity.badRequest().body("Parent company not found.");
+            return ResponseEntity.badRequest().body(Map.of("message", "Parent company not found."));
         }
 
         Societe parent = parentOptional.get();
         if (!(parent instanceof SocieteComposite)) {
-            return ResponseEntity.badRequest().body("Cannot add a subsidiary to a leaf company.");
+            return ResponseEntity.badRequest().body(Map.of("message", "Cannot add a subsidiary to a leaf company."));
         }
 
         SocieteComposite parentComposite = (SocieteComposite) parent;

@@ -3,7 +3,11 @@ package com.vehiclub.api.config.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.beans.factory.annotation.Value;
+import java.util.Collection; // New import
+import java.util.List;
+import org.springframework.beans.factory.annotation.Value; // New import
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -11,6 +15,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors; // New import
 
 @Component
 public class JwtTokenProvider {
@@ -23,6 +28,10 @@ public class JwtTokenProvider {
 
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
+        // Add roles to claims
+        claims.put("roles", userDetails.getAuthorities().stream()
+                                    .map(GrantedAuthority::getAuthority)
+                                    .collect(Collectors.toList()));
         return createToken(claims, userDetails.getUsername());
     }
 
@@ -52,6 +61,15 @@ public class JwtTokenProvider {
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
+    }
+
+    // New method to extract roles from token
+    public Collection<? extends GrantedAuthority> extractRoles(String token) {
+        Claims claims = extractAllClaims(token);
+        List<String> roles = claims.get("roles", List.class);
+        return roles.stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
     }
 
     private Claims extractAllClaims(String token) {

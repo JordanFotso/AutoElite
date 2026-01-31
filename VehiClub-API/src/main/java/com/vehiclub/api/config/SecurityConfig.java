@@ -47,6 +47,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/vehicules/catalogue").permitAll() // Le catalogue est public
                 .requestMatchers("/api/vehicules/{id}").permitAll() // Le détail d'un véhicule est public
                 .requestMatchers(HttpMethod.GET, "/api/commandes/*/liasse").permitAll() // Autoriser la génération de liasse de commande
+                .requestMatchers(HttpMethod.POST, "/api/societes").hasRole("COMPANY_USER") // Autoriser les COMPANY_USER à créer des sociétés
                 .anyRequest().authenticated() // Toutes les autres requêtes nécessitent une authentification
             );
 
