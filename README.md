@@ -25,40 +25,34 @@ L'application suit une architecture découplée  3-Tiers, composée de :
 
 ## Lancement rapide du Projet
 
-Pour cloner ce projet et ses sous-modules, utilisez la commande suivante :
+Pour démarrer rapidement le projet, suivez ces étapes :
 
-```bash
-git clone --recurse-submodules https://github.com/JordanFotso/AutoElite.git
-cd AutoElite
-```
+1.  **Cloner le dépôt avec ses sous-modules :**
+    ```bash
+    git clone --recurse-submodules https://github.com/JordanFotso/AutoElite.git
+    cd AutoElite
+    ```
 
-Démarrer la base de données:
-À la racine du projet, exécutez la commande suivante pour démarrer le conteneur PostgreSQL en arrière-plan.
+2.  **Démarrer la base de données (PostgreSQL avec Docker Compose) :**
+    À la racine du projet, exécutez la commande suivante pour démarrer le conteneur PostgreSQL en arrière-plan :
+    ```bash
+    docker-compose up -d
+    ```
 
-```bash
-docker-compose up -d
-```
-Lancer l'API Backend:
-  ```bash
-cd VehiClub-API
-```
-Dans ce répertoire (`VehiClub-API`), utilisez le wrapper Maven pour lancer l'application.
+3.  **Lancer l'API Backend (VehiClub-API) :**
+    Naviguez dans le répertoire de l'API, puis utilisez le wrapper Maven pour lancer l'application :
+    ```bash
+    cd VehiClub-API
+    ./mvnw spring-boot:run
+    ```
 
-```bash
-./mvnw spring-boot:run
-```
-Lancer le Frontend:
-```bash
-cd VehiClub-View
-```
-Dans ce répertoire (`VehiClub-View`), utilisez le node pour installer l'application.
-```bash
-npm i
-```
-Lancer le serveur.
-```bash
-npm run dev
-```
+4.  **Lancer le Frontend (VehiClub-View) :**
+    Naviguez dans le répertoire du frontend, installez les dépendances, puis lancez le serveur de développement :
+    ```bash
+    cd VehiClub-View
+    npm i
+    npm run dev
+    ```
 
 ## Lancement du Projet
 
