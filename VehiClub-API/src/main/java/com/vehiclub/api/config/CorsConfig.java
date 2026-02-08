@@ -14,7 +14,7 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**") // Appliquer à tous les endpoints
-                        .allowedOrigins("http://localhost:3000") // Autoriser le frontend
+                        .allowedOrigins("https://auto-elite-tp.vercel.app") // Autoriser le frontend
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Autoriser les méthodes HTTP
                         .allowedHeaders("*") // Autoriser tous les en-têtes
                         .allowCredentials(true); // Autoriser les cookies et les en-têtes d'autorisation
