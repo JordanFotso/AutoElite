@@ -1,6 +1,6 @@
 package com.vehiclub.api.config;
 
-package com.vehiclub.config;
+
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
