@@ -17,7 +17,7 @@ COPY src ./src
 RUN ./mvnw package -DskipTests
 
 # Stage 2: Create the final image
-FROM openjdk:17-jre-slim
+FROM openjdk:17.0.10-jre-slim
 WORKDIR /app
 
 # Copy the jar file from the build stage
