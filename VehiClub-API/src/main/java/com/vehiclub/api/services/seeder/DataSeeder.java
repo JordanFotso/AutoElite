@@ -270,7 +270,7 @@ public class DataSeeder implements CommandLineRunner {
                 System.err.println("Warning: Seed image not found: " + filename);
                 return new MockMultipartFile(filename, filename, contentType, "".getBytes(StandardCharsets.UTF_8)); // Retourne un fichier vide
             }
-            byte[] fileContent = Files.readAllBytes(resource.getFile().toPath());
+            byte[] fileContent = resource.getInputStream().readAllBytes();
             return new MockMultipartFile(filename, filename, contentType, fileContent);
         } catch (IOException e) {
             System.err.println("Warning: Could not load seed image " + filename + ". " + e.getMessage());
