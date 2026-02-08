@@ -1,17 +1,18 @@
 # Stage 1: Build the application
+# Assumes the build context is the root of the repository
 FROM maven:3.8.5-openjdk-17 AS build
 WORKDIR /app
 
 # Copy maven wrapper and pom.xml to download dependencies
-COPY mvnw .
-COPY .mvn .mvn
-COPY pom.xml .
+COPY VehiClub-API/mvnw .
+COPY VehiClub-API/.mvn .mvn
+COPY VehiClub-API/pom.xml .
 
 # Download dependencies
 RUN ./mvnw dependency:go-offline -B
 
-# Copy the rest of the source code
-COPY src ./src
+# Copy the rest of the source code for the API module
+COPY VehiClub-API/src ./src
 
 # Package the application
 RUN ./mvnw package -DskipTests
